@@ -7,6 +7,7 @@ public class SpawnPoint : MonoBehaviour
     public bool isOccupied;     // 스폰 포인트에 물체가 있는지 여부
     public bool isInCooldown;   // 스폰 포인트가 쿨다운 중인지 여부
     private int objectsInside = 0;  // 스폰 포인트에 있는 물체의 개수
+    private float cooldownTimer = 0.0f;  // 쿨다운 타이머
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -39,11 +40,18 @@ public class SpawnPoint : MonoBehaviour
     IEnumerator Cooldown()
     {
         isInCooldown = true;  // 쿨다운 상태로 변경
-        yield return new WaitForSeconds(0.7f);  // 2초의 쿨다운 기간 대기
-        isInCooldown = false;  // 쿨다운이 끝났으므로 상태 변경
+        cooldownTimer = 0.0f;  // 쿨다운 타이머를 0으로 초기화
+        while (isInCooldown)
+        {
+            yield return new WaitForSeconds(0.7f);  // 2초의 쿨다운 기간 대기
+            cooldownTimer += 0.7f;  // 쿨다운 타이머를 2초씩 증가
+            if (cooldownTimer >= 0.7f)  // 쿨다운 타이머가 2초를 넘으면
+            {
+                isInCooldown = false;  // 쿨다운 상태를 해제
+            }
+        }
     }
 }
-
 
 
 

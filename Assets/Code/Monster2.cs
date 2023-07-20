@@ -22,24 +22,26 @@ public class Monster2 : MonoBehaviour
 
         UpdateText();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.Log(multiplier);
-            GameManager.Instance.hud.ChangeScore2(multiplier); // 먼저 점수를 변경합니다.
-            this.gameObject.SetActive(false); // 몬스터를 비활성화합니다.
-        }
-    }
-
     // 이 메서드는 게임 오브젝트가 다시 활성화될 때마다 호출됩니다.
     private void OnEnable()
     {
         multiplier = GetRandomMultiplier();
         UpdateText();
     }
+    IEnumerator ActivateItem()
+    {
+        yield return new WaitForSeconds(0.7f); // 원하는 지연 시간 설정
 
+        GameManager.Instance.hud.ChangeScore2(multiplier); // 먼저 점수를 변경합니다.
+        this.gameObject.SetActive(false); // 몬스터를 비활성화합니다.
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            StartCoroutine(ActivateItem());
+        }
+    }
     void UpdateText()
     {
         if (text != null)

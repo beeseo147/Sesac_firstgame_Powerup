@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Monster
   - Itemp
+  - HUD
   layers:
   - Default
   - TransparentFX
