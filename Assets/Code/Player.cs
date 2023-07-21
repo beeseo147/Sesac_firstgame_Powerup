@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     SpriteRenderer spriter; // 플레이어의 스프라이트 렌더러
     Rigidbody2D rigid; // 플레이어의 Rigidbody2D
     Animator anim; // 플레이어의 애니메이터
-    int count = 0;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -36,23 +36,7 @@ public class Player : MonoBehaviour
         isMoving = true; // 플레이어가 이동 중으로 설정합니다
 
         Vector2 startPos = rigid.position; // 시작 위치를 저장합니다
-        Vector2 endPos;
-        if (inputVec.x > 0)
-        {
-            endPos = new Vector2(Mathf.Round(startPos.x + 4 * inputVec.x), startPos.y); // 이동할 위치를 계산합니다
-            Debug.Log(endPos);
-            count++;
-            Debug.Log(count);
-            
-        }
-        else
-        {
-            endPos = new Vector2(startPos.x, Mathf.Round(startPos.y + 4 * inputVec.y));
-            Debug.Log(endPos);
-            count++;
-            Debug.Log(count);
-
-        }
+        Vector2 endPos = new Vector2(Mathf.Round(startPos.x + 4 * inputVec.x), Mathf.Round(startPos.y + 4 * inputVec.y)); // 이동할 위치를 계산합니다
         
         float t = 0; // 현재 이동 시간
         while (t < 1) // 이동이 완료되지 않은 경우

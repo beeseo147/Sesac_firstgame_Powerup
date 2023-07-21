@@ -42,10 +42,13 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        time -= Time.deltaTime;
-        timerText.text = time.ToString("F1");
+        
+            time -= Time.deltaTime;
+            timerText.text = time.ToString("F1");
 
-        // Updating the score text
-        scoreText.text = score.ToString() + " point";
+            // Updating the score text
+
+            scoreText.text = score.ToString() + " point";
+      
     }
 }
