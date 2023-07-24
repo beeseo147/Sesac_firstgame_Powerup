@@ -339,6 +339,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
       propertyPath: m_fontStyle
       value: 0
       objectReference: {fileID: 0}
@@ -346,10 +350,22 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8005966609666698154, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8005966609666698154, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

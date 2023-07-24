@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
 
     private bool isMoving = false; // 플레이어가 이동 중인지 여부
     private float nextInputTime; // 다음 입력 시간
+     float maxX = 4.0f; // Set the maximum allowed X position
+     float minX = -4.0f; // Set the minimum allowed X position
+     float maxY = 3.0f; // Set the maximum allowed Y position
+     float minY = -5.0f; // Set the minimum allowed Y position
 
     SpriteRenderer spriter; // 플레이어의 스프라이트 렌더러
     Rigidbody2D rigid; // 플레이어의 Rigidbody2D
@@ -33,11 +37,22 @@ public class Player : MonoBehaviour
 
     IEnumerator Move()
     {
-        isMoving = true; // 플레이어가 이동 중으로 설정합니다
+        isMoving = true;
+        Vector2 startPos = rigid.position;
+        Vector2 inputVecNormalized = inputVec.normalized; // Normalize the input vector to ensure consistent movement speed
 
-        Vector2 startPos = rigid.position; // 시작 위치를 저장합니다
-        Vector2 endPos = new Vector2(Mathf.Round(startPos.x + 4 * inputVec.x), Mathf.Round(startPos.y + 4 * inputVec.y)); // 이동할 위치를 계산합니다
         
+        float targetX = Mathf.Clamp(startPos.x + 4 * inputVecNormalized.x, minX, maxX);
+        float targetY = Mathf.Clamp(startPos.y + 4 * inputVecNormalized.y, minY, maxY);
+        Vector2 endPos = new Vector2(Mathf.Round(targetX), Mathf.Round(targetY));
+
+        // Check if the player is already at the desired end position
+        if (endPos == startPos)
+        {
+            isMoving = false; // Cancel the movement
+            yield break; // Exit the coroutine early
+        }
+
         float t = 0; // 현재 이동 시간
         while (t < 1) // 이동이 완료되지 않은 경우
         {

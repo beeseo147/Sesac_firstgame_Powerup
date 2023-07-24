@@ -11,14 +11,24 @@ public class SpawnPoint : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        objectsInside++;    // 스폰 포인트 안에 들어온 물체의 개수를 증가
-        UpdateOccupiedStatus();  // 물체 개수에 따라 스폰 포인트의 상태를 업데이트
+        /*objectsInside++;    // 스폰 포인트 안에 들어온 물체의 개수를 증가
+        UpdateOccupiedStatus();  // 물체 개수에 따라 스폰 포인트의 상태를*/
+        gameObject.SetActive(true); // Activate the game object before calling the coroutine
+        objectsInside++;
+        UpdateOccupiedStatus();
+
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        objectsInside--;    // 스폰 포인트에서 나간 물체의 개수를 감소
-        UpdateOccupiedStatus();  // 물체 개수에 따라 스폰 포인트의 상태를 업데이트
+        /*objectsInside--;    // 스폰 포인트에서 나간 물체의 개수를 감소
+        UpdateOccupiedStatus();  // 물체 개수에 따라 스폰 포인트의 상태를 업데이트*/
+        if (!gameObject.activeSelf)
+        {
+            gameObject.SetActive(true); // Activate the game object before calling the coroutine
+        }
+        objectsInside--;
+        UpdateOccupiedStatus();
     }
 
     void UpdateOccupiedStatus()
@@ -39,17 +49,17 @@ public class SpawnPoint : MonoBehaviour
 
     IEnumerator Cooldown()
     {
-        isInCooldown = true;  // 쿨다운 상태로 변경
-        cooldownTimer = 0.0f;  // 쿨다운 타이머를 0으로 초기화
-        while (isInCooldown)
+        isInCooldown = true;
+        float cooldownDuration = 0.7f; // 쿨타임 0.7초
+
+        while (cooldownTimer < cooldownDuration)
         {
-            yield return new WaitForSeconds(0.7f);  // 2초의 쿨다운 기간 대기
-            cooldownTimer += 0.7f;  // 쿨다운 타이머를 2초씩 증가
-            if (cooldownTimer >= 0.7f)  // 쿨다운 타이머가 2초를 넘으면
-            {
-                isInCooldown = false;  // 쿨다운 상태를 해제
-            }
+            cooldownTimer += Time.deltaTime;
+            yield return null;
         }
+
+        isInCooldown = false;
+        cooldownTimer = 0.0f; // 쿨타임 초기화
     }
 }
 
