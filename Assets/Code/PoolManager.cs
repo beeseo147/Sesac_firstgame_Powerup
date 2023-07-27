@@ -12,9 +12,9 @@ public class PoolManager : MonoBehaviour
     void Awake()
     {
         pools = new List<GameObject>[prefabs.Length];
-        for(int index = 0;index < pools.Length;index++)
+        for (int index = 0; index < pools.Length; index++)
         {
-            pools[index] = new List<GameObject> ();//모든 오브젝트 풀 리스트 초기화
+            pools[index] = new List<GameObject>();//모든 오브젝트 풀 리스트 초기화
         }
 
     }

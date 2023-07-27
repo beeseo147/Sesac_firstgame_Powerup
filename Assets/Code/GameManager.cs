@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public PoolManager pool;
     public HUD hud;
-
+    public Player player; 
 
     void Awake()
     {

@@ -62,6 +62,3 @@ public class SpawnPoint : MonoBehaviour
         cooldownTimer = 0.0f; // 쿨타임 초기화
     }
 }
-
-
-
