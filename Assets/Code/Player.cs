@@ -12,10 +12,10 @@ public class Player : MonoBehaviour
     public bool isdaed = false;
     private bool isMoving = false; // 플레이어가 이동 중인지 여부
     private float nextInputTime; // 다음 입력 시간
-     float maxX = 4.0f; // Set the maximum allowed X position
-     float minX = -4.0f; // Set the minimum allowed X position
-     float maxY = 3.0f; // Set the maximum allowed Y position
-     float minY = -5.0f; // Set the minimum allowed Y position
+    float maxX = 4.0f; // Set the maximum allowed X position
+    float minX = -4.0f; // Set the minimum allowed X position
+    float maxY = 3.0f; // Set the maximum allowed Y position
+    float minY = -5.0f; // Set the minimum allowed Y position
 
     SpriteRenderer spriter; // 플레이어의 스프라이트 렌더러
     Rigidbody2D rigid; // 플레이어의 Rigidbody2D
@@ -64,33 +64,21 @@ public class Player : MonoBehaviour
         //    rigid.position = Vector2.Lerp(startPos, endPos, t); // 플레이어의 위치를 이동합니다
         //    yield return null; // 다음 프레임을 기다립니다
         //}
-        Vector2 inputVecNomalized = inputVec.normalized*4f;
-
-        Debug.Log(inputVecNomalized);
-        if (rigid.position.x + inputVecNomalized.x > maxX ||
-        rigid.position.y + inputVecNomalized.y > maxY ||
-        rigid.position.x + inputVecNomalized.x < minX || 
-        rigid.position.y + inputVecNomalized.y  < minY)
-        {
-            isMoving = false; // Cancel the movement
-            yield break; // Exit the coroutine early
-        }
-
-
-
+        
+        Debug.Log(inputVec);
         float speed = 4.0f; // 이동 속도
 
         Vector2 targetPos = rigid.position;
-
-        if (inputVecNomalized.x > 0)
+       
+        if (inputVec.x > 0.5f)
         {
             targetPos.x += 4;
         }
-        else if (inputVecNomalized.x == 0 && inputVecNomalized.y > 0)
+        else if (-0.7f<inputVec.x && inputVec.x < 0.71f && inputVec.y > 0.5f)
         {
             targetPos.y += 4;
         }
-        else if (inputVecNomalized.x ==0  && inputVecNomalized.y < 0)
+        else if (-0.7f < inputVec.x && inputVec.x < 0.71f && inputVec.y < 0.5f)
         {
             targetPos.y -= 4;
         }
@@ -98,11 +86,12 @@ public class Player : MonoBehaviour
         {
             targetPos.x -= 4;
         }
-
+        targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
+        targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
         float t = 0; // 현재 이동 시간
         while (t < 1) // 이동이 완료되지 않은 경우
         {
-            t += Time.deltaTime * speed;
+            t += (Time.deltaTime * speed) * 0.3f;
             rigid.position = Vector2.Lerp(rigid.position, targetPos, t);
             yield return null;
         }
@@ -116,6 +105,9 @@ public class Player : MonoBehaviour
         Vector2 joystickInput = value.Get<Vector2>();
 
     }
+
+
+
 
     void LateUpdate()
     {
