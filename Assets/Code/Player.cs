@@ -47,12 +47,12 @@ public class Player : MonoBehaviour
         float speed = 4.0f; // 이동 속도
 
         Vector2 targetPos = rigid.position;
-       
+
         if (inputVec.x > 0.5f)
         {
             targetPos.x += 4;
         }
-        else if (-0.7f<inputVec.x && inputVec.x < 0.71f && inputVec.y > 0.5f)
+        else if (-0.7f < inputVec.x && inputVec.x < 0.71f && inputVec.y > 0.5f)
         {
             targetPos.y += 4;
         }
