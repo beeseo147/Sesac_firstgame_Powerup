@@ -47,10 +47,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3315727265215678144}
   - component: {fileID: 6052377771919372651}
-  - component: {fileID: 2095162372872899478}
   - component: {fileID: 314340991685438196}
   - component: {fileID: 3927283096689526585}
   - component: {fileID: 8439246824335889649}
+  - component: {fileID: 2095162372872899478}
   m_Layer: 0
   m_Name: Item
   m_TagString: Itemp
@@ -126,21 +126,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2095162372872899478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6421292833443074497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a396132509200448b17c8e080574f54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiplier: 0
-  hudPos: {fileID: 4257433913520045346}
-  text: {fileID: 5449975494227165614}
 --- !u!70 &314340991685438196
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -224,6 +209,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2095162372872899478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421292833443074497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a396132509200448b17c8e080574f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplier: 0
+  hudPos: {fileID: 4257433913520045346}
+  text: {fileID: 5449975494227165614}
+  anim: {fileID: 8439246824335889649}
 --- !u!1001 &2892828987828805341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -330,20 +331,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
       propertyPath: m_fontColor.b
-      value: 1
+      value: 0.827451
       objectReference: {fileID: 0}
     - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
       propertyPath: m_fontColor.g
-      value: 0
+      value: 0.827451
       objectReference: {fileID: 0}
     - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
       propertyPath: m_fontColor.r
-      value: 0.18938446
+      value: 0.827451
       objectReference: {fileID: 0}
     - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1716147337465648210, guid: fd41da94649b2424ea7ab2a0555e43bd, type: 2}
+    - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4294901808
+      value: 4292072403
       objectReference: {fileID: 0}
+    - target: {fileID: 7171797091642220403, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005966609666698154, guid: 62fcaa6540c8cf044a0aec5d4453ffd3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1716147337465648210, guid: fd41da94649b2424ea7ab2a0555e43bd, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

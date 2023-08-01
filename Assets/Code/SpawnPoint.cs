@@ -11,22 +11,14 @@ public class SpawnPoint : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        /*objectsInside++;    // 스폰 포인트 안에 들어온 물체의 개수를 증가
-        UpdateOccupiedStatus();  // 물체 개수에 따라 스폰 포인트의 상태를*/
-        gameObject.SetActive(true); // Activate the game object before calling the coroutine
         objectsInside++;
         UpdateOccupiedStatus();
-
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        /*objectsInside--;    // 스폰 포인트에서 나간 물체의 개수를 감소
-        UpdateOccupiedStatus();  // 물체 개수에 따라 스폰 포인트의 상태를 업데이트*/
-        if (!gameObject.activeSelf)
-        {
-            gameObject.SetActive(true); // Activate the game object before calling the coroutine
-        }
+        // 스폰 포인트에서 나간 물체의 개수를 감소
+       // 물체 개수에 따라 스폰 포인트의 상태를 업데이트*/
         objectsInside--;
         UpdateOccupiedStatus();
     }

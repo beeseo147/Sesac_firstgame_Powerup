@@ -236,8 +236,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 0
+  Tag: 247
   hudPos: {fileID: 7811264938010524131}
   text: {fileID: 3741784237092364083}
+  anim: {fileID: 6430756078798237478}
 --- !u!1001 &5794491722247979072
 PrefabInstance:
   m_ObjectHideFlags: 0

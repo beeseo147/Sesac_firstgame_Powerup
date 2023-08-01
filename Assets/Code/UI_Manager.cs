@@ -5,29 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+public enum BTNType
+{
+    Play,
+    Option,
+    Quit,
+    Sound,
+    Back,
+    Solo,
+    Togeter
+}
 public class UI_Manager : MonoBehaviour
 {
-    GameObject Play;
-    private void Awake()
-    {
-       
-
-
-    }
-    public void OnclickNewGame()
-    {
-    }
-    public void OnclikOption()
-    {
-
-    }
-    public void OnclickQuit()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-    Application.Quit();
-#endif
-
-    }
 }

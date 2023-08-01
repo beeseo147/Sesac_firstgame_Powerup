@@ -3132,8 +3132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d26be489b15bae468af7dc2b184143c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOccupied: 0
-  isInCooldown: 0
+  isOccupied: 1
+  isInCooldown: 1
 --- !u!1 &1324462358
 GameObject:
   m_ObjectHideFlags: 0

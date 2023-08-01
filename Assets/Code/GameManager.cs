@@ -15,9 +15,4 @@ public class GameManager : MonoBehaviour
     {
         Instance = this; // Assign the current instance of GameManager to the static Instance variable.
     }
-
-    void Update() // Method to update the score text.
-    {
-
-    }
 }

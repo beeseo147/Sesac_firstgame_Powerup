@@ -17,12 +17,12 @@ public class HUD : MonoBehaviour
         scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
     }
 
-    public void ChangeScore(float value) // Method to change the score.
+    public void ChangeScore(float value) // +/-Á¡¼ö °è»ê
     {
         score += value;
     }
 
-    public void ChangeScore2(float value)
+    public void ChangeScore2(float value) // °ö¼À/³ª´°¼À ¿¬»ê
     {
         if (value >= 1)
         {
@@ -42,13 +42,15 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        
+        if (time > 0)
             time -= Time.deltaTime;
+        else
+        {
+            time = 0;
+            GameManager.Instance.player.isdaed = true;
+        }
             timerText.text = time.ToString("F1");
-
-            // Updating the score text
-
             scoreText.text = score.ToString() + " point";
-      
+            
     }
 }

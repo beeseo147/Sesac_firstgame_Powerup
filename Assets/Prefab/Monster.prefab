@@ -208,9 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8c8b94d218e4241b1e782de840f137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 1
+  multiplier: 0
   hudPos: {fileID: 7811264938010524131}
   text: {fileID: 3741784237092364083}
+  anim: {fileID: 6430756078798237478}
 --- !u!50 &-2130300116260108985
 Rigidbody2D:
   serializedVersion: 4
