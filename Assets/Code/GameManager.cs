@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public HUD hud;
     public Player player;
     public AudioSource bgm1;
+    
+
     void Awake()
     {
         Instance = this; // Assign the current instance of GameManager to the static Instance variable.

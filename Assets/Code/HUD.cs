@@ -8,9 +8,9 @@ public class HUD : MonoBehaviour
 {
     public Text timerText;
     public TextMeshProUGUI scoreText;
-    private float time = 10.0f;
+    private float time = 200.0f;
     private float score = 1;
-
+    public bool isplay = false;
     void Start()
     {
         timerText = GetComponentInChildren<Text>();
@@ -40,6 +40,20 @@ public class HUD : MonoBehaviour
         }
     }
 
+    public void IsPause()
+    {
+        isplay = !isplay;
+        if (isplay)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+    }
     void Update()
     {
         if (time > 0)

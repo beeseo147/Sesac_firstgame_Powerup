@@ -10,7 +10,6 @@ public class Monster2 : Enemy
         anim.SetBool("Touched", false);
         Tag = "¡À";
         multiplier = (Random.Range(1, 6)/10.0f);
-        Debug.Log(multiplier);
         UpdateText();
     }
    

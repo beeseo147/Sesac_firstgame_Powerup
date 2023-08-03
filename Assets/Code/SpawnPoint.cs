@@ -35,6 +35,7 @@ public class SpawnPoint : MonoBehaviour
             {
                 StartCoroutine(Cooldown()); // 쿨다운 코루틴 실행
             }
+            
             isOccupied = false; // 스폰 포인트 안에 물체가 없는 경우 isOccupied를 false로 설정
         }
     }

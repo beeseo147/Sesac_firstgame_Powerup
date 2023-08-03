@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Item : Enemy
 {
+   
     public void OnEnable()
     {
         anim.SetBool("Touched", false);

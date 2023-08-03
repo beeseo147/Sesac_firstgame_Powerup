@@ -82,8 +82,6 @@ public class Player : MonoBehaviour
     void OnMove(InputValue value)
     {
         inputVec = value.Get<Vector2>(); // 입력을 저장합니다
-        Vector2 joystickInput = value.Get<Vector2>();
-
     }
     void LateUpdate()
     {
