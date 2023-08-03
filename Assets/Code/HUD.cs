@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class HUD : MonoBehaviour
 {
     public Text timerText;
     public TextMeshProUGUI scoreText;
-    private float time = 200.0f;
+    private float time = 20.0f;
     private float score = 1;
     public bool isplay = false;
     void Start()
@@ -61,7 +61,9 @@ public class HUD : MonoBehaviour
         else
         {
             time = 0;
-            GameManager.Instance.player.isdaed = true;
+            GameManager.Instance.player.isdead = true;
+            SceneManager.LoadScene("GameOver");
+
         }
             timerText.text = time.ToString("F1");
             scoreText.text = score.ToString() + " point";

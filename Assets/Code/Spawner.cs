@@ -15,10 +15,10 @@ public class Spawner : MonoBehaviour
     {
         foreach (var spawnPoint in spawnPoints)
         {
-            if (!spawnPoint.isOccupied && !spawnPoint.isInCooldown)
+            if (!spawnPoint.isOccupied )
             {
                 
-                Spawn(spawnPoint);  // 스폰 포인트가 비어있고 쿨다운 중이 아닌 경우 스폰 함수 호출
+                Spawn(spawnPoint);  // 스폰 포인트가 비어있는경우
                 spawnPoint.isOccupied = true;  // 스폰 포인트를 점유 상태로 설정
             }
         }
@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject enemy = null;
         float randomValue = Random.value;
-       
+
         if (randomValue < 0.2f)  // 20% 확률
         {
             enemy = GameManager.Instance.pool.Get(0);
@@ -45,14 +45,7 @@ public class Spawner : MonoBehaviour
         {
             enemy = GameManager.Instance.pool.Get(3);
         }
-
-        if (enemy != null)
-        {
-            enemy.transform.position = spawnPoint.transform.position;
-        }
-
-        // enemy를 이용한 후속 처리
-
+        enemy.transform.position = spawnPoint.transform.position;
     }
 }
 

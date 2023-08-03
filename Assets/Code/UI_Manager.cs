@@ -17,4 +17,8 @@ public enum BTNType
 }
 public class UI_Manager : MonoBehaviour
 {
+    private void Start()
+    {
+        AudioManager.Instance.PlayMusic("MainMenuTitle");
+    }
 }

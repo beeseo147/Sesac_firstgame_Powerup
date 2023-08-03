@@ -13,13 +13,4 @@ public class Item : Enemy
         multiplier = Random.Range(1, 20);
         UpdateText();
     }
-
-    protected override IEnumerator ActivateItem()
-    {
-        
-        anim.SetBool("Touched", true);
-        yield return new WaitForSeconds(0.7f); // 원하는 지연 시간 설정
-        GameManager.Instance.hud.ChangeScore(multiplier);
-        this.gameObject.SetActive(false);
-    }
 }

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float speed; // 플레이어의 이동 속도
     public Vector2 inputVec; // 플레이어의 입력 방향
     public float inputDelay = 0.5f; // 입력 무시 시간 (필요에 따라 변경할 수 있습니다)
-    public bool isdaed = false;
+    public bool isdead = false;
     private bool isMoving = false; // 플레이어가 이동 중인지 여부
     private float nextInputTime; // 다음 입력 시간
     float maxX = 4.0f; // Set the maximum allowed X position
@@ -34,10 +34,6 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Move()); // Move() 코루틴을 시작합니다
             nextInputTime = Time.time + inputDelay; // 다음 입력 시간은 현재 시간 + 입력 무시 시간입니다
-        }
-        if (isdaed)
-        {
-            Time.timeScale = 0;
         }
     }
 

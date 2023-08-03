@@ -154,6 +154,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.Sesac.Powerup
     Standalone: com.Sesac.Powerup
   buildNumber:
     Bratwurst: 0
@@ -754,7 +755,7 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 1
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: e8bdf122-c079-4324-b46e-4af5d7341b3a
   framebufferDepthMemorylessMode: 0

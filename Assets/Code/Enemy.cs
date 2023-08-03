@@ -38,11 +38,10 @@ public class Enemy : MonoBehaviour
     {
         // 기존 ActivateItem 동작을 오버라이드할 수 있도록 virtual로 선언
         anim.SetBool("Touched", true);
-        
         yield return new WaitForSeconds(0.7f); // 원하는 지연 시간 설정
 
         GameManager.Instance.hud.ChangeScore(multiplier);
-        this.gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

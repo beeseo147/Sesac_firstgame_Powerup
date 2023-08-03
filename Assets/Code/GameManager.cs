@@ -10,12 +10,19 @@ public class GameManager : MonoBehaviour
     public PoolManager pool;
     public HUD hud;
     public Player player;
-    public AudioSource bgm1;
-    
 
-    void Awake()
+    private void Awake()
     {
-        Instance = this; // Assign the current instance of GameManager to the static Instance variable.
-        bgm1 = GetComponent<AudioSource>();
+        AudioManager.Instance.PlayMusic("GameTitle1");
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }

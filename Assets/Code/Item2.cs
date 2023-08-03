@@ -19,7 +19,7 @@ public class Item2 : Enemy
         anim.SetBool("Touched", true);
         yield return new WaitForSeconds(0.7f); // 원하는 지연 시간 설정
         GameManager.Instance.hud.ChangeScore2(multiplier);
-        this.gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 
 }
