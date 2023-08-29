@@ -30,6 +30,7 @@ public class BtnType : MonoBehaviour
                 break;
             case BTNType.Quit:
 #if UNITY_EDITOR
+
                 UnityEditor.EditorApplication.isPlaying = false;
 #else
     Application.Quit();
