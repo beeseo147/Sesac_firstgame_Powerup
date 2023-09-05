@@ -5,7 +5,8 @@ using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
     //..변수
-    public GameObject[] prefabs;
+    [Header("# Monster")]
+    [SerializeField] GameObject[] prefabs;
     //..풀 담당을 하는 리스트들
     public List<GameObject>[] pools;
 

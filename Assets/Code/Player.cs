@@ -6,20 +6,20 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
-    public float speed; // ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿ ¼Óµµ
-    public Vector2 inputVec; // ÇÃ·¹ÀÌ¾îÀÇ ÀÔ·Â ¹æÇâ
-    public float inputDelay = 0.5f; // ÀÔ·Â ¹«½Ã ½Ã°£ (ÇÊ¿ä¿¡ µû¶ó º¯°æÇÒ ¼ö ÀÖ½À´Ï´Ù)
+    public float speed; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½
+    public Vector2 inputVec; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float inputDelay = 0.5f; // ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ (ï¿½Ê¿ä¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½)
     public bool isdead = false;
-    private bool isMoving = false; // ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ ÁßÀÎÁö ¿©ºÎ
-    private float nextInputTime; // ´ÙÀ½ ÀÔ·Â ½Ã°£
+    private bool isMoving = false; // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float nextInputTime; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½Ã°ï¿½
     float maxX = 4.0f; // Set the maximum allowed X position
     float minX = -4.0f; // Set the minimum allowed X position
     float maxY = 3.0f; // Set the maximum allowed Y position
     float minY = -5.0f; // Set the minimum allowed Y position
 
-    SpriteRenderer spriter; // ÇÃ·¹ÀÌ¾îÀÇ ½ºÇÁ¶óÀÌÆ® ·»´õ·¯
-    Rigidbody2D rigid; // ÇÃ·¹ÀÌ¾îÀÇ Rigidbody2D
-    Animator anim; // ÇÃ·¹ÀÌ¾îÀÇ ¾Ö´Ï¸ÞÀÌÅÍ
+    SpriteRenderer spriter; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    Rigidbody2D rigid; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ Rigidbody2D
+    Animator anim; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½
 
     void Awake()
     {
@@ -30,17 +30,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!isMoving && Time.time > nextInputTime && inputVec != Vector2.zero) // ÀÔ·Â ¹«½Ã ½Ã°£ ÀÌÈÄÀÌ°í, ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ ÁßÀÌ ¾Æ´Ï¸ç, ÀÔ·ÂÀÌ ÀÖ´Â °æ¿ì
+        if (!isMoving && Time.time > nextInputTime && inputVec != Vector2.zero) // ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½, ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
         {
-            StartCoroutine(Move()); // Move() ÄÚ·çÆ¾À» ½ÃÀÛÇÕ´Ï´Ù
-            nextInputTime = Time.time + inputDelay; // ´ÙÀ½ ÀÔ·Â ½Ã°£Àº ÇöÀç ½Ã°£ + ÀÔ·Â ¹«½Ã ½Ã°£ÀÔ´Ï´Ù
+            StartCoroutine(Move()); // Move() ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+            nextInputTime = Time.time + inputDelay; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ + ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½Ô´Ï´ï¿½
         }
     }
 
     IEnumerator Move()
     {
         isMoving = true;
-        float speed = 4.0f; // ÀÌµ¿ ¼Óµµ
+        float speed = 4.0f; // ï¿½Ìµï¿½ ï¿½Óµï¿½
 
         Vector2 targetPos = rigid.position;
 
@@ -60,39 +60,39 @@ public class Player : MonoBehaviour
         {
             targetPos.x -= 4;
         }
-        //ÃÖ´ë°Å¸®¿¡ ¹þ¾î³¯°æ¿ì
+        //ï¿½Ö´ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³¯ï¿½ï¿½ï¿½
         targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
         targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
 
-        float t = 0; // ÇöÀç ÀÌµ¿ ½Ã°£
-        while (t < 1) // ÀÌµ¿ÀÌ ¿Ï·áµÇÁö ¾ÊÀº °æ¿ì
+        float t = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ã°ï¿½
+        while (t < 1) // ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
             t += (Time.deltaTime * speed) * 0.3f;
             rigid.position = Vector2.Lerp(rigid.position, targetPos, t);
             yield return null;
         }
 
-        isMoving = false; // ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ ÁßÀ¸·Î ¼³Á¤ÇÕ´Ï´Ù
+        isMoving = false; // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
     }
 
     void OnMove(InputValue value)
     {
-        inputVec = value.Get<Vector2>(); // ÀÔ·ÂÀ» ÀúÀåÇÕ´Ï´Ù
+        inputVec = value.Get<Vector2>(); // ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
     }
     void LateUpdate()
     {
-        anim.SetFloat("Speed", inputVec.magnitude); // ¾Ö´Ï¸ÞÀÌÅÍÀÇ "Speed" ¼Ó¼º¿¡ ÀÔ·ÂÀÇ Å©±â¸¦ ¼³Á¤ÇÕ´Ï´Ù
+        anim.SetFloat("Speed", inputVec.magnitude); // ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "Speed" ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 
-        if (inputVec.x != 0) // ÀÔ·ÂÀÇ x ¼ººÐÀÌ 0ÀÌ ¾Æ´Ñ °æ¿ì
+        if (inputVec.x != 0) // ï¿½Ô·ï¿½ï¿½ï¿½ x ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½
         {
-            spriter.flipX = inputVec.x < 0; // ½ºÇÁ¶óÀÌÆ®¸¦ µÚÁý½À´Ï´Ù
+            spriter.flipX = inputVec.x < 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Monster") // Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®ÀÇ ÅÂ±×°¡ "Monster"ÀÎ °æ¿ì
+        if (collision.gameObject.tag == "Monster") // ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Â±×°ï¿½ "Monster"ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
-            anim.SetTrigger("Attack"); // ¾Ö´Ï¸ÞÀÌÅÍÀÇ "Attack" Æ®¸®°Å¸¦ ½ÇÇàÇÕ´Ï´Ù
+            anim.SetTrigger("Attack"); // ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "Attack" Æ®ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
         }
     }
 }

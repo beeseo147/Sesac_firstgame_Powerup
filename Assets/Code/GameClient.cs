@@ -6,7 +6,7 @@ using System.Net;
 using TMPro;
 using UnityEngine.tvOS;
 
-
+[SerializeField]
 public class GameClient : MonoBehaviour
 {
     //수신 코드 Stub 서버에서 글로벌에게 서버에서 클라이언트 단계에서의 구현
@@ -76,7 +76,7 @@ public class GameClient : MonoBehaviour
         param.serverPort = 33334;
         param.serverIP = "127.0.0.1";
 
-        if (netClient.Connect(param) == false) ;
+        if (netClient.Connect(param) == false)
             Debug.LogError(string.Format("Failed to connect to server."));
 
 

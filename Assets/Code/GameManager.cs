@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [Header("# In game")]
     public PoolManager pool;
     public HUD hud;
     public Player player;

@@ -16,13 +16,10 @@ public class HUD : MonoBehaviour
         timerText = GetComponentInChildren<Text>();
         scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
     }
+    public void AdditionAndSubtraction(float value) // +/-Á¡¼ö °è»ê
+=> score += value;
 
-    public void ChangeScore(float value) // +/-Á¡¼ö °è»ê
-    {
-        score += value;
-    }
-
-    public void ChangeScore2(float value) // °ö¼À/³ª´°¼À ¿¬»ê
+    public void MultiplicationAndDivision(float value) // °ö¼À/³ª´°¼À ¿¬»ê
     {
         if (value >= 1)
         {

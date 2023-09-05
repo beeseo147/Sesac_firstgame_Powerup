@@ -9,7 +9,7 @@ public class Monster : Enemy
     {
         anim.SetBool("Touched", false);
         Tag = "";
-        multiplier = Random.Range(-1, -20);
+        Point = Random.Range(-1, -20);
         UpdateText();
     }
 
