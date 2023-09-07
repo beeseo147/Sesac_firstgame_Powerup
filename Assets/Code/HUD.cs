@@ -7,14 +7,21 @@ using UnityEngine.SceneManagement;
 public class HUD : MonoBehaviour
 {
     public Text timerText;
+    public Button PauseButton;
     public TextMeshProUGUI scoreText;
-    private float time = 20.0f;
+    private float time = 20;
     private float score = 1;
     public bool isplay = false;
     void Start()
     {
         timerText = GetComponentInChildren<Text>();
         scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
+        PauseButton = GetComponentInChildren<Button>();
+        if (!GameManager.Instance.getPlayer())
+        {
+            PauseButton.interactable = false;
+            PauseButton.gameObject.SetActive(false);
+        }
     }
     public void AdditionAndSubtraction(float value) // +/-점수 계산
 => score += value;
@@ -36,7 +43,10 @@ public class HUD : MonoBehaviour
             // 0 이하의 값에 대한 예외 처리
         }
     }
-
+    public float gettime()
+    {
+        return time;
+    }
     public void IsPause()
     {
         isplay = !isplay;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,9 @@ public class Player : MonoBehaviour
             nextInputTime = Time.time + inputDelay; // ���� �Է� �ð��� ���� �ð� + �Է� ���� �ð��Դϴ�
         }
     }
+    public void Move(int playernumber,int key, List<int> enemies) {
 
+    }
     IEnumerator Move()
     {
         isMoving = true;

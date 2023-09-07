@@ -10,7 +10,7 @@ public class Item : Enemy
         anim.SetBool("Touched", true);
         AudioManager.Instance.PlaySFX("Item");
         yield return new WaitForSeconds(0.7f); // 원하는 지연 시간 설정
-        GameManager.Instance.hud.MultiplicationAndDivision(Point); // 먼저 점수를 변경합니다.
+        GameManager.Instance.hud.AdditionAndSubtraction(Point); // 먼저 점수를 변경합니다.
         Destroy(this.gameObject);
     }
     public void OnEnable()

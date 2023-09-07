@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public PoolManager pool;
     public HUD hud;
     public Player player;
-
+    bool SoloPlayer = false;
     private void Awake()
     {
         AudioManager.Instance.PlayMusic("GameTitle1");
@@ -24,5 +24,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+    public bool getPlayer()
+    {
+        return SoloPlayer;
+    }
+    public void setPlayer(bool solo)
+    {
+         SoloPlayer = solo;
     }
 }

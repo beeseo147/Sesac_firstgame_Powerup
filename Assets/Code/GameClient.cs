@@ -5,6 +5,7 @@ using Nettention.Proud;
 using System.Net;
 using TMPro;
 using UnityEngine.tvOS;
+using System;
 
 [SerializeField]
 public class GameClient : MonoBehaviour
@@ -13,6 +14,7 @@ public class GameClient : MonoBehaviour
     //Stub의 구현 필요
     PowerupS2G.Stub stubS2G;
     PowerupS2C.Stub stubS2C;
+    public static GameClient Instance;
 
     //송신 코드 클라이언트에서 서버로 갈 자료 정리
     PowerupC2S.Proxy proxy;
@@ -25,6 +27,16 @@ public class GameClient : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         netClient = new NetClient();
 
         proxy = new PowerupC2S.Proxy();
@@ -63,10 +75,51 @@ public class GameClient : MonoBehaviour
 
         };
 
-        stubS2G.PlayersReady = (Nettention.Proud.HostID remote, Nettention.Proud.RmiContext rmiContext, SortedDictionary<int, bool> playersReady) =>
+        stubS2C.PlayerEnter = (HostID remote, RmiContext rmiContext,bool isEnter) =>
+        {
+            Debug.Log(string.Format("PlayerEnter"));
+            print("player Entered to " +(int)remote);
+
+            return true;
+        };
+        stubS2C.PlayerExit = (HostID remote, RmiContext rmiContext, bool isExit) =>
+        {
+            Debug.Log(string.Format("PlayerExit"));
+            print("player Exit to " + (int)remote);
+
+            return true;
+        };
+        stubS2G.GameStart = (HostID remote, RmiContext rmiContext) =>
+        {
+            Debug.Log(string.Format("GameStart"));
+            return true;
+        };
+        stubS2G.GameEnd = (HostID remote, RmiContext rmiContext) =>
+        {
+            Debug.Log(string.Format("GameEnd"));
+            return true;
+        };
+        stubS2G.PlayerMove = (HostID remote, RmiContext rmiContext, int playerNo, int key, List<int> enemies) =>
+        {
+            print("PlayerMove : " + playerNo + " is moving to" + key);
+            return true;
+        };
+        stubS2G.PlayersRank = (HostID remote, RmiContext rmiContext, SortedDictionary<int, int> playersRank) =>
         {
             return true;
         };
+        stubS2G.PlayersReady = (HostID remote, RmiContext rmiContext, SortedDictionary<int, bool> playersReady) =>
+        {
+
+            return true;
+        };
+        stubS2G.TimeNow = (HostID remote, RmiContext rmiContext, long ticksReamain) =>
+        {
+            ticksReamain = (long)GameManager.Instance.hud.gettime(); // Explicitly cast to long
+            return true;
+        };
+
+
         netClient.AttachProxy(proxy);
         netClient.AttachStub(stubS2G);
         netClient.AttachStub(stubS2C);
@@ -90,7 +143,14 @@ public class GameClient : MonoBehaviour
     void Update()
     {
         netClient.FrameMove();
+    }
+    //public void CallClientMove(byte key)
+    //{
+    //    proxy.Move(HostID.HostID_Server, RmiContext.SecureReliableSend, int key, List<int> enemies);
+    //}
 
-        
+    public NetClient GetClient()
+    {
+        return netClient;
     }
 }

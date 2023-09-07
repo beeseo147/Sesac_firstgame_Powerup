@@ -51,7 +51,6 @@ public class Enemy : MonoBehaviour
         // 기존 OnTriggerEnter2D 동작을 오버라이드할 수 있도록 virtual로 선언
         if (collision.gameObject.tag == "Player")
         {
-            
             StartCoroutine(ActivateItem());
         }
     }
