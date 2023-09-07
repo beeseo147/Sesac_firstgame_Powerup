@@ -57,6 +57,9 @@ public class BtnType : MonoBehaviour
                 Debug.Log("게임실행");
                 break;
             case BTNType.Togeter:
+                Debug.Log("함께하기");
+                Time.timeScale = 0f;
+                SceneManager.LoadScene("SampleScene");
                 break;
         }
     }
@@ -73,4 +76,8 @@ public class BtnType : MonoBehaviour
         cg.blocksRaycasts = false;
     }
 
+    public bool PlayerEnter()
+    {
+        return true;
+    }
 }
