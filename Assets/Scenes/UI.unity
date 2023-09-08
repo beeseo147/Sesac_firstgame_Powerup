@@ -242,6 +242,7 @@ MonoBehaviour:
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
   PlayGroup: {fileID: 0}
+  gameClient: {fileID: 0}
 --- !u!114 &108093295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +748,7 @@ MonoBehaviour:
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
   PlayGroup: {fileID: 0}
+  gameClient: {fileID: 0}
 --- !u!95 &287665216
 Animator:
   serializedVersion: 5
@@ -805,6 +807,7 @@ MonoBehaviour:
   mainGroup: {fileID: 711525319}
   optionGroup: {fileID: 162561025}
   PlayGroup: {fileID: 1697425920}
+  gameClient: {fileID: 0}
 --- !u!1001 &349062119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1161,6 +1164,7 @@ MonoBehaviour:
   mainGroup: {fileID: 711525319}
   optionGroup: {fileID: 162561025}
   PlayGroup: {fileID: 1697425920}
+  gameClient: {fileID: 0}
 --- !u!114 &923243445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1353,6 +1357,7 @@ MonoBehaviour:
   mainGroup: {fileID: 711525319}
   optionGroup: {fileID: 162561025}
   PlayGroup: {fileID: 1697425920}
+  gameClient: {fileID: 0}
 --- !u!95 &1253713913
 Animator:
   serializedVersion: 5
@@ -1756,6 +1761,7 @@ MonoBehaviour:
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
   PlayGroup: {fileID: 0}
+  gameClient: {fileID: 0}
 --- !u!114 &1830946194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1862,7 +1868,7 @@ GameObject:
   - component: {fileID: 1874729040}
   m_Layer: 0
   m_Name: Game Client
-  m_TagString: Untagged
+  m_TagString: GameClinet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2269,6 +2275,7 @@ MonoBehaviour:
   mainGroup: {fileID: 711525319}
   optionGroup: {fileID: 162561025}
   PlayGroup: {fileID: 1697425920}
+  gameClient: {fileID: 0}
 --- !u!1 &1721711734681383808
 GameObject:
   m_ObjectHideFlags: 0
@@ -3119,6 +3126,7 @@ MonoBehaviour:
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
   PlayGroup: {fileID: 0}
+  gameClient: {fileID: 0}
 --- !u!114 &8347057945681010313
 MonoBehaviour:
   m_ObjectHideFlags: 0

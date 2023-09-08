@@ -763,6 +763,8 @@ MonoBehaviour:
   pool: {fileID: 6761384}
   hud: {fileID: 1324462359}
   player: {fileID: 967707052}
+  type: {fileID: 0}
+  client: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,6 +3299,8 @@ MonoBehaviour:
   timerText: {fileID: 800595825}
   PauseButton: {fileID: 0}
   scoreText: {fileID: 1615141177}
+  time: 20
+  score: 1
   isplay: 0
 --- !u!114 &1324462360
 MonoBehaviour:
