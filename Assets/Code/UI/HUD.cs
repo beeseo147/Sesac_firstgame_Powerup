@@ -6,18 +6,18 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class HUD : MonoBehaviour
 {
-    public Text timerText;
-    public Button PauseButton;
-    public TextMeshProUGUI scoreText;
-    private float time = 20;
-    private float score = 1;
-    public bool isplay = false;
+    [SerializeField] Text timerText;
+    [SerializeField] Button PauseButton;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] float time = 20;
+    [SerializeField] float score = 1;
+    [SerializeField] bool isplay = false;
     void Start()
     {
         timerText = GetComponentInChildren<Text>();
         scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
         PauseButton = GetComponentInChildren<Button>();
-        if (!GameManager.Instance.getPlayer())
+        if (!GameManager.Instance.GetPlayer())
         {
             PauseButton.interactable = false;
             PauseButton.gameObject.SetActive(false);
@@ -70,10 +70,16 @@ public class HUD : MonoBehaviour
             time = 0;
             GameManager.Instance.player.isdead = true;
             SceneManager.LoadScene("GameOver");
+            GameOver();
 
         }
-            timerText.text = time.ToString("F1");
-            scoreText.text = score.ToString() + " point";
+
+        timerText.text = time.ToString("F1");
+        scoreText.text = score.ToString() + " point";
             
+    }
+    public void GameOver()
+    {
+        isplay = false;
     }
 }
