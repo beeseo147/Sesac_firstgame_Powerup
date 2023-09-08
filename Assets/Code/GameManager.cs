@@ -4,32 +4,26 @@ using UnityEngine;
 
 
 // GameManager Class
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance;
+
     [Header("# In game")]
     public PoolManager pool;
     public HUD hud;
     public Player player;
+    public BtnType type;
+    public GameClient client;
     bool SoloPlayer = false;
+    
     private void Awake()
     {
-        AudioManager.Instance.PlayMusic("GameTitle1");
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
         
     }
-    public bool getPlayer()
+    public bool GetPlayer()
     {
         return SoloPlayer;
     }
-    public void setPlayer(bool solo)
+    public void SetPlayer(bool solo)
     {
          SoloPlayer = solo;
     }
