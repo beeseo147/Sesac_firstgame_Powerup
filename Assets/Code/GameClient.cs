@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine.tvOS;
 using System;
 
-[SerializeField]
+
 public class GameClient : MonoBehaviour
 {
     //수신 코드 Stub 서버에서 글로벌에게 서버에서 클라이언트 단계에서의 구현
@@ -49,7 +49,6 @@ public class GameClient : MonoBehaviour
             {
                 connected = true;
             }
-            proxy.EnterRoom(HostID.HostID_Server, RmiContext.FastEncryptedReliableSend);
         };
 
         netClient.LeaveServerHandler = (ErrorInfo info) =>
@@ -79,46 +78,46 @@ public class GameClient : MonoBehaviour
         {
             Debug.Log(string.Format("PlayerEnter"));
             print("player Entered to " +(int)remote);
-
             return true;
-        };
+        };//Ui단계에서 BtnType에 Together창에서 구현
         stubS2C.PlayerExit = (HostID remote, RmiContext rmiContext, bool isExit) =>
         {
             Debug.Log(string.Format("PlayerExit"));
             print("player Exit to " + (int)remote);
-
+            GameManager.Instance.type.PlayerExit(isExit);
             return true;
-        };
+        };//넘어가서 대기방에서 만들지 게임들어가서 활성화할지 고민
         stubS2G.GameStart = (HostID remote, RmiContext rmiContext) =>
         {
             Debug.Log(string.Format("GameStart"));
             return true;
-        };
+        };//대기방이나 게임 단계
         stubS2G.GameEnd = (HostID remote, RmiContext rmiContext) =>
         {
             Debug.Log(string.Format("GameEnd"));
+            GameManager.Instance.hud.GameOver();
             return true;
-        };
+        };//GameEnd란것을 알려야함 HUD에서 구현
         stubS2G.PlayerMove = (HostID remote, RmiContext rmiContext, int playerNo, int key, List<int> enemies) =>
         {
             print("PlayerMove : " + playerNo + " is moving to" + key);
             return true;
-        };
+        };//Player 스크립트에서 구현
         stubS2G.PlayersRank = (HostID remote, RmiContext rmiContext, SortedDictionary<int, int> playersRank) =>
         {
             return true;
-        };
+        };//GameOver 스크립트에서 구현
         stubS2G.PlayersReady = (HostID remote, RmiContext rmiContext, SortedDictionary<int, bool> playersReady) =>
         {
 
             return true;
-        };
+        };//대기방을 만들거나 정지된 화면에서 버튼을 활성화 Ready 버튼 구현 및 Ready상태를 내보낸다.
         stubS2G.TimeNow = (HostID remote, RmiContext rmiContext, long ticksReamain) =>
         {
             ticksReamain = (long)GameManager.Instance.hud.gettime(); // Explicitly cast to long
             return true;
-        };
-
+        };//HUD에 TIME을 받는다.
+        
 
         netClient.AttachProxy(proxy);
         netClient.AttachStub(stubS2G);
@@ -144,10 +143,10 @@ public class GameClient : MonoBehaviour
     {
         netClient.FrameMove();
     }
-    //public void CallClientMove(byte key)
-    //{
-    //    proxy.Move(HostID.HostID_Server, RmiContext.SecureReliableSend, int key, List<int> enemies);
-    //}
+    public void CallEnterRoom()
+    {
+        proxy.EnterRoom(HostID.HostID_Server, RmiContext.ReliableSend);
+    }
 
     public NetClient GetClient()
     {

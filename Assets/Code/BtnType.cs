@@ -1,3 +1,4 @@
+using PowerupC2S;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,16 @@ using static Unity.Collections.AllocatorManager;
 public class BtnType : MonoBehaviour
 {
     bool isSound;
+    bool isEnter=false;
     public BTNType Key;
     public CanvasGroup mainGroup;
     public CanvasGroup optionGroup;
     public CanvasGroup PlayGroup;
-
+    public GameClient gameClient;
+    private void Awake()
+    {
+        gameClient = GameObject.Find("Game Client").GetComponent<GameClient>();
+    }
     public void OnBtnClick()
     {
         Debug.Log(Key);
@@ -54,12 +60,15 @@ public class BtnType : MonoBehaviour
 
             case BTNType.Solo:
                 SceneManager.LoadScene("SampleScene");
+                GameManager.Instance.SetPlayer(true);
                 Debug.Log("게임실행");
                 break;
             case BTNType.Togeter:
                 Debug.Log("함께하기");
                 Time.timeScale = 0f;
+                
                 SceneManager.LoadScene("SampleScene");
+                PlayerEnter();
                 break;
         }
     }
@@ -76,8 +85,13 @@ public class BtnType : MonoBehaviour
         cg.blocksRaycasts = false;
     }
 
-    public bool PlayerEnter()
+    private void PlayerEnter()
     {
-        return true;
+        print("player enter");
+        gameClient.CallEnterRoom();
+    }
+    public bool PlayerExit(bool isenter)
+    {
+        return false;
     }
 }
