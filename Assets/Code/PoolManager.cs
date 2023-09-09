@@ -9,13 +9,15 @@ public class PoolManager : MonoBehaviour
     [SerializeField] GameObject[] prefabs;
     //..풀 담당을 하는 리스트들
     public List<GameObject>[] pools;
-
+    public List<int>[] enemies;
     void Awake()
     {
         pools = new List<GameObject>[prefabs.Length];
+        enemies = new List<int>[prefabs.Length];
         for (int index = 0; index < pools.Length; index++)
         {
             pools[index] = new List<GameObject>(); // 각 요소를 List<GameObject>의 인스턴스로 초기화
+            enemies[index] = new List<int>();
         }
     }
 
@@ -25,6 +27,7 @@ public class PoolManager : MonoBehaviour
     GameObject newObject = Instantiate(prefabs[index], transform);
     newObject.SetActive(true);
     pools[index].Add(newObject);
+    enemies[index].Add(index);
     return newObject;
     }
 }

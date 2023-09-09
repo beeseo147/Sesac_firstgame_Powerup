@@ -8,15 +8,21 @@ using static Unity.Collections.AllocatorManager;
 public class BtnType : MonoBehaviour
 {
     bool isSound;
-    bool isEnter=false;
     public BTNType Key;
-    public CanvasGroup mainGroup;
-    public CanvasGroup optionGroup;
-    public CanvasGroup PlayGroup;
+    [SerializeField] CanvasGroup mainGroup;
+    [SerializeField] CanvasGroup optionGroup;
+    [SerializeField] CanvasGroup PlayGroup;
+    [SerializeField] CanvasGroup MultiGroup;
     public GameClient gameClient;
     private void Awake()
     {
         gameClient = GameObject.Find("Game Client").GetComponent<GameClient>();
+        mainGroup = GameObject.Find("MainMenu").GetComponent<CanvasGroup>();
+        optionGroup = GameObject.Find("OptionMenu").GetComponent<CanvasGroup>();
+
+        PlayGroup = GameObject.Find("PlayMenu").GetComponent<CanvasGroup>();
+        MultiGroup = GameObject.Find("MultiMenu").GetComponent<CanvasGroup>();
+
     }
     public void OnBtnClick()
     {
@@ -56,6 +62,8 @@ public class BtnType : MonoBehaviour
                 CanvasGroupOn(mainGroup);
                 CanvasGroupOff(optionGroup);
                 CanvasGroupOff(PlayGroup);
+                CanvasGroupOff(MultiGroup);
+                PlayerExit();
                 break;
 
             case BTNType.Solo:
@@ -65,11 +73,26 @@ public class BtnType : MonoBehaviour
                 break;
             case BTNType.Togeter:
                 Debug.Log("함께하기");
-                Time.timeScale = 0f;
-                
-                SceneManager.LoadScene("SampleScene");
+                CanvasGroupOff(PlayGroup);
+                CanvasGroupOff(mainGroup);
+                CanvasGroupOff(optionGroup);
+                CanvasGroupOn(MultiGroup);
                 PlayerEnter();
                 break;
+            case BTNType.Ready:
+                PlayerGetReady(true);
+                break;
+            case BTNType.Exit:
+                PlayerGetReady(false);
+                CanvasGroupOn(PlayGroup);
+                CanvasGroupOff(mainGroup);
+                CanvasGroupOff(optionGroup);
+                CanvasGroupOff(MultiGroup);
+                break;
+            case BTNType.Start:
+
+                break;
+
         }
     }
     public void CanvasGroupOn(CanvasGroup cg)
@@ -90,8 +113,14 @@ public class BtnType : MonoBehaviour
         print("player enter");
         gameClient.CallEnterRoom();
     }
-    public bool PlayerExit(bool isenter)
+    public void PlayerExit()
     {
-        return false;
+        print("player Exit");
+        gameClient.CallPlayerExit();
+    }
+    private void PlayerGetReady(bool isready)
+    {
+        print("player Ready");
+        gameClient.CallGetReady(isready);
     }
 }

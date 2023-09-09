@@ -13,7 +13,10 @@ public enum BTNType
     Sound,
     Back,
     Solo,
-    Togeter
+    Togeter,
+    Ready,
+    Exit,
+    Start
 }
 public class UI_Manager : MonoBehaviour
 {

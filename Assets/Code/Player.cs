@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     public bool isdead = false;
     private bool isMoving = false; // �÷��̾ �̵� ������ ����
     private float nextInputTime; // ���� �Է� �ð�
+    private int PlayerNumber;
     float maxX = 4.0f; // Set the maximum allowed X position
     float minX = -4.0f; // Set the minimum allowed X position
     float maxY = 3.0f; // Set the maximum allowed Y position
@@ -98,4 +100,6 @@ public class Player : MonoBehaviour
             anim.SetTrigger("Attack"); // �ִϸ������� "Attack" Ʈ���Ÿ� �����մϴ�
         }
     }
+
+
 }

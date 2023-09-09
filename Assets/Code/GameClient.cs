@@ -8,13 +8,12 @@ using UnityEngine.tvOS;
 using System;
 
 
-public class GameClient : MonoBehaviour
+public class GameClient : Singleton<GameClient>
 {
     //수신 코드 Stub 서버에서 글로벌에게 서버에서 클라이언트 단계에서의 구현
     //Stub의 구현 필요
     PowerupS2G.Stub stubS2G;
     PowerupS2C.Stub stubS2C;
-    public static GameClient Instance;
 
     //송신 코드 클라이언트에서 서버로 갈 자료 정리
     PowerupC2S.Proxy proxy;
@@ -27,15 +26,6 @@ public class GameClient : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
 
         netClient = new NetClient();
 
@@ -84,7 +74,6 @@ public class GameClient : MonoBehaviour
         {
             Debug.Log(string.Format("PlayerExit"));
             print("player Exit to " + (int)remote);
-            GameManager.Instance.type.PlayerExit(isExit);
             return true;
         };//넘어가서 대기방에서 만들지 게임들어가서 활성화할지 고민
         stubS2G.GameStart = (HostID remote, RmiContext rmiContext) =>
@@ -133,12 +122,6 @@ public class GameClient : MonoBehaviour
 
 
     }
-
-    private void OnGUI()
-    {
-
-    }
-
     void Update()
     {
         netClient.FrameMove();
@@ -147,7 +130,22 @@ public class GameClient : MonoBehaviour
     {
         proxy.EnterRoom(HostID.HostID_Server, RmiContext.ReliableSend);
     }
-
+    public void CallPlayerExit()
+    {
+        proxy.ExitRoom(HostID.HostID_Server, RmiContext.ReliableSend);
+    }
+    public void CallGetReady(bool isready)
+    {
+        proxy.GetReady(HostID.HostID_Server, RmiContext.ReliableSend, isready);
+    }
+    public void CallMove(int key, List<int> enemies)
+    {
+        proxy.Move(HostID.HostID_Server, RmiContext.ReliableSend, key,enemies);
+    }
+    public void CallHasPoint(int point)
+    {
+        proxy.HasPoint(HostID.HostID_Server, RmiContext.ReliableSend,point);
+    }
     public NetClient GetClient()
     {
         return netClient;
