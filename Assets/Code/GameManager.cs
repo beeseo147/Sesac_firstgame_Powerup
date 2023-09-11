@@ -10,14 +10,11 @@ public class GameManager : Singleton<GameManager>
     public PoolManager pool;
     public HUD hud;
     public Player player;
+    [SerializeField] int PlayerNumber;
     public BtnType type;
     public GameClient client;
-    bool SoloPlayer = false;
+    [SerializeField]  bool SoloPlayer = false;
     
-    private void Awake()
-    {
-        
-    }
     public bool GetPlayer()
     {
         return SoloPlayer;

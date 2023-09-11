@@ -47,6 +47,10 @@ public class HUD : MonoBehaviour
     {
         return time;
     }
+    public float getscore()
+    {
+        return score;
+    }
     public void IsPause()
     {
         isplay = !isplay;

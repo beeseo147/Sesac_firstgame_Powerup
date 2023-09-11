@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public float inputDelay = 0.5f; // 입력 무시 시간 (필요에 따라 변경할 수 있습니다)
     public bool isdead = false;
     private bool isMoving = false; // 플레이어가 이동 중인지 여부
-    private float nextInputTime; // ���� �Է� �ð�
+    private float nextInputTime; // 다음 입력 시간
     private int PlayerNumber;
     float maxX = 4.0f; // Set the maximum allowed X position
     float minX = -4.0f; // Set the minimum allowed X position
@@ -28,13 +28,14 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        AudioManager.Instance.PlayMusic("GameTitle1");
     }
     void Update()
     {
-        if (!isMoving && Time.time > nextInputTime && inputVec != Vector2.zero) // �Է� ���� �ð� �����̰�, �÷��̾ �̵� ���� �ƴϸ�, �Է��� �ִ� ���
+        if (!isMoving && Time.time > nextInputTime && inputVec != Vector2.zero) // 입력 무시 시간 이후이고, 플레이어가 이동 중이 아니며, 입력이 있는 경우
         {
-            StartCoroutine(Move()); // Move() �ڷ�ƾ�� �����մϴ�
-            nextInputTime = Time.time + inputDelay; // ���� �Է� �ð��� ���� �ð� + �Է� ���� �ð��Դϴ�
+            StartCoroutine(Move()); // Move() 코루틴을 시작합니다
+            nextInputTime = Time.time + inputDelay; // 다음 입력 시간은 현재 시간 + 입력 무시 시간입니다
 
         }
     }
@@ -64,19 +65,19 @@ public class Player : MonoBehaviour
         {
             targetPos.x -= 4;
         }
-        //�ִ�Ÿ��� ������
+        //최대거리에 벗어날경우
         targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
         targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
 
-        float t = 0; // ���� �̵� �ð�
-        while (t < 1) // �̵��� �Ϸ���� ���� ���
+        float t = 0; // 현재 이동 시간
+        while (t < 1) // 이동이 완료되지 않은 경우
         {
             t += (Time.deltaTime * speed) * 0.3f;
             rigid.position = Vector2.Lerp(rigid.position, targetPos, t);
             yield return null;
         }
 
-        isMoving = false; // �÷��̾ �̵� ������ �����մϴ�
+        isMoving = false; // 플레이어가 이동 중으로 설정합니다
     }
 
     void OnMove(InputValue value)
@@ -98,5 +99,13 @@ public class Player : MonoBehaviour
         {
             anim.SetTrigger("Attack"); // �ִϸ������� "Attack" Ʈ���Ÿ� �����մϴ�
         }
+    }
+    public void SetPlayerNumber(int number)
+    {
+        PlayerNumber = number;
+    }
+    public int GetPlayerNumber()
+    {
+        return PlayerNumber;
     }
 }
