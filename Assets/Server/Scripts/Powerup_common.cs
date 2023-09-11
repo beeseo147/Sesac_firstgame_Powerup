@@ -8,7 +8,6 @@
 // Do not modify this file, but modify the source .pidl file.
 
 using System;
-using System.Collections.Generic;
 namespace PowerupS2G
 {
 	internal class Common
