@@ -8,11 +8,11 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
-    public float speed; // �÷��̾��� �̵� �ӵ�
-    public Vector2 inputVec; // �÷��̾��� �Է� ����
-    public float inputDelay = 0.5f; // �Է� ���� �ð� (�ʿ信 ���� ������ �� �ֽ��ϴ�)
+    public float speed; // Player Moving Speed
+    public Vector2 inputVec; // Player Way
+    public float inputDelay = 0.5f; // 입력 무시 시간 (필요에 따라 변경할 수 있습니다)
     public bool isdead = false;
-    private bool isMoving = false; // �÷��̾ �̵� ������ ����
+    private bool isMoving = false; // 플레이어가 이동 중인지 여부
     private float nextInputTime; // ���� �Է� �ð�
     private int PlayerNumber;
     float maxX = 4.0f; // Set the maximum allowed X position
@@ -23,20 +23,19 @@ public class Player : MonoBehaviour
     SpriteRenderer spriter; // �÷��̾��� ��������Ʈ ������
     Rigidbody2D rigid; // �÷��̾��� Rigidbody2D
     Animator anim; // �÷��̾��� �ִϸ�����
-
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
     }
-
     void Update()
     {
         if (!isMoving && Time.time > nextInputTime && inputVec != Vector2.zero) // �Է� ���� �ð� �����̰�, �÷��̾ �̵� ���� �ƴϸ�, �Է��� �ִ� ���
         {
             StartCoroutine(Move()); // Move() �ڷ�ƾ�� �����մϴ�
             nextInputTime = Time.time + inputDelay; // ���� �Է� �ð��� ���� �ð� + �Է� ���� �ð��Դϴ�
+
         }
     }
     public void Move(int playernumber,int key, List<int> enemies) {
@@ -100,6 +99,4 @@ public class Player : MonoBehaviour
             anim.SetTrigger("Attack"); // �ִϸ������� "Attack" Ʈ���Ÿ� �����մϴ�
         }
     }
-
-
 }

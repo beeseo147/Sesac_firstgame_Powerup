@@ -6,7 +6,6 @@ using UnityEngine;
 // GameManager Class
 public class GameManager : Singleton<GameManager>
 {
-
     [Header("# In game")]
     public PoolManager pool;
     public HUD hud;
