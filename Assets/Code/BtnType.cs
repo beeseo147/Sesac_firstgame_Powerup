@@ -7,22 +7,19 @@ using static Unity.Collections.AllocatorManager;
 
 public class BtnType : MonoBehaviour
 {
-    bool isSound;
+    bool isSound =true;
     public BTNType Key;
+    [Header("#CanvasGroup")]
     [SerializeField] CanvasGroup mainGroup;
     [SerializeField] CanvasGroup optionGroup;
     [SerializeField] CanvasGroup PlayGroup;
     [SerializeField] CanvasGroup MultiGroup;
-    public GameClient gameClient;
     private void Awake()
     {
-        gameClient = GameObject.Find("Game Client").GetComponent<GameClient>();
         mainGroup = GameObject.Find("MainMenu").GetComponent<CanvasGroup>();
         optionGroup = GameObject.Find("OptionMenu").GetComponent<CanvasGroup>();
-
         PlayGroup = GameObject.Find("PlayMenu").GetComponent<CanvasGroup>();
         MultiGroup = GameObject.Find("MultiMenu").GetComponent<CanvasGroup>();
-
     }
     public void OnBtnClick()
     {
@@ -30,6 +27,7 @@ public class BtnType : MonoBehaviour
         AudioManager.Instance.PlaySFX("ClikKey");
         switch (Key)
         {
+        //MainMenu
             case BTNType.Play:
                 CanvasGroupOn(PlayGroup);
                 CanvasGroupOff(mainGroup);
@@ -48,14 +46,16 @@ public class BtnType : MonoBehaviour
     Application.Quit();
 #endif
                 break;
-
+        //OptionMenu
             case BTNType.Sound:
                 if (isSound)
                 {
                     AudioManager.Instance.musicSource.Stop();
                 }
                 else
+                {
                     AudioManager.Instance.musicSource.Play();
+                }
                 isSound = !isSound;
                 break;
             case BTNType.Back:
@@ -65,10 +65,9 @@ public class BtnType : MonoBehaviour
                 CanvasGroupOff(MultiGroup);
                 PlayerExit();
                 break;
-
+        //PlayGruop
             case BTNType.Solo:
                 SceneManager.LoadScene("SampleScene");
-                GameManager.Instance.SetPlayer(true);
                 Debug.Log("게임실행");
                 break;
             case BTNType.Togeter:
@@ -79,6 +78,7 @@ public class BtnType : MonoBehaviour
                 CanvasGroupOn(MultiGroup);
                 PlayerEnter();
                 break;
+        //MultiGruop
             case BTNType.Ready:
                 PlayerGetReady(true);
                 break;
@@ -90,7 +90,8 @@ public class BtnType : MonoBehaviour
                 CanvasGroupOff(MultiGroup);
                 break;
             case BTNType.Start:
-
+                SceneManager.LoadScene("SampleScene");
+                Debug.Log("멀티게임실행");
                 break;
 
         }
@@ -111,16 +112,16 @@ public class BtnType : MonoBehaviour
     private void PlayerEnter()
     {
         print("player enter");
-        gameClient.CallEnterRoom();
+        GameClient.Instance.CallEnterRoom();
     }
     public void PlayerExit()
     {
         print("player Exit");
-        gameClient.CallPlayerExit();
+        GameClient.Instance.CallPlayerExit();
     }
     private void PlayerGetReady(bool isready)
     {
         print("player Ready");
-        gameClient.CallGetReady(isready);
+        GameClient.Instance.CallGetReady(isready);
     }
 }
