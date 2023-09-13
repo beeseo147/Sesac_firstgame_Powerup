@@ -17,7 +17,7 @@ public class HUD : MonoBehaviour
         timerText = GetComponentInChildren<Text>();
         scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
         PauseButton = GetComponentInChildren<Button>();
-        if (!GameManager.Instance.GetPlayer())
+        if (!GameClient.Instance.GetPlayer())
         {
             PauseButton.interactable = false;
             PauseButton.gameObject.SetActive(false);
@@ -57,10 +57,12 @@ public class HUD : MonoBehaviour
         if (isplay)
         {
             Time.timeScale = 0f;
+            AudioManager.Instance.musicSource.Pause();
         }
         else
         {
             Time.timeScale = 1f;
+            AudioManager.Instance.musicSource.UnPause();
         }
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
@@ -72,6 +74,7 @@ public class HUD : MonoBehaviour
         else
         {
             time = 0;
+            GameClient.Instance.SetScore((int)score);
             GameManager.Instance.player.isdead = true;
             SceneManager.LoadScene("GameOver");
             GameOver();

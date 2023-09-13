@@ -2,28 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
-    public static AudioManager Instance;
-    public Sound[] musicSounds, sfxSounds;
-    public AudioSource musicSource,sfxSource;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
+    [SerializeField] public Sound[] musicSounds, sfxSounds;
+    [SerializeField] public AudioSource musicSource, sfxSource;
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicSounds, x => x.name == name);
-        if(s == null)
+        if (s == null)
         {
             Debug.Log("Problem Music");
         }

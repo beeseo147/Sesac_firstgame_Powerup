@@ -19,10 +19,12 @@ public class Player : MonoBehaviour
     float minX = -4.0f; // Set the minimum allowed X position
     float maxY = 3.0f; // Set the maximum allowed Y position
     float minY = -5.0f; // Set the minimum allowed Y position
+    
+    
 
-    SpriteRenderer spriter; // �÷��̾��� ��������Ʈ ������
-    Rigidbody2D rigid; // �÷��̾��� Rigidbody2D
-    Animator anim; // �÷��̾��� �ִϸ�����
+    SpriteRenderer spriter; 
+    Rigidbody2D rigid; 
+    Animator anim; 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -39,9 +41,7 @@ public class Player : MonoBehaviour
 
         }
     }
-    public void Move(int playernumber,int key, List<int> enemies) {
 
-    }
     IEnumerator Move()
     {
         isMoving = true;
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         //최대거리에 벗어날경우
         targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
         targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
-
+        GameClient.Instance.CallMove(1, GameManager.Instance.pool.enemies);
         float t = 0; // 현재 이동 시간
         while (t < 1) // 이동이 완료되지 않은 경우
         {
@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
             rigid.position = Vector2.Lerp(rigid.position, targetPos, t);
             yield return null;
         }
-
         isMoving = false; // 플레이어가 이동 중으로 설정합니다
     }
 
@@ -86,18 +85,18 @@ public class Player : MonoBehaviour
     }
     void LateUpdate()
     {
-        anim.SetFloat("Speed", inputVec.magnitude); // �ִϸ������� "Speed" �Ӽ��� �Է��� ũ�⸦ �����մϴ�
+        anim.SetFloat("Speed", inputVec.magnitude); 
 
-        if (inputVec.x != 0) // �Է��� x ������ 0�� �ƴ� ���
+        if (inputVec.x != 0) 
         {
-            spriter.flipX = inputVec.x < 0; // ��������Ʈ�� �������ϴ�
+            spriter.flipX = inputVec.x < 0; 
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Monster") // �浹�� ������Ʈ�� �±װ� "Monster"�� ���
+        if (collision.gameObject.tag == "Monster") 
         {
-            anim.SetTrigger("Attack"); // �ִϸ������� "Attack" Ʈ���Ÿ� �����մϴ�
+            anim.SetTrigger("Attack"); 
         }
     }
     public void SetPlayerNumber(int number)

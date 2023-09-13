@@ -7,20 +7,19 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [Header("# In game")]
-    public PoolManager pool;
-    public HUD hud;
-    public Player player;
-    [SerializeField] int PlayerNumber;
-    public BtnType type;
-    public GameClient client;
-    [SerializeField]  bool SoloPlayer = false;
-    
-    public bool GetPlayer()
+    [SerializeField] public PoolManager pool;
+    [SerializeField] public HUD hud;
+    [SerializeField] public Player player;
+
+    private void Start()
     {
-        return SoloPlayer;
+        InitializeValues();
     }
-    public void SetPlayer(bool solo)
+
+    public void InitializeValues()
     {
-         SoloPlayer = solo;
+        pool = GameObject.Find("PoolManager").GetComponent<PoolManager>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+        hud = GameObject.Find("HUD").GetComponent<HUD>();
     }
 }

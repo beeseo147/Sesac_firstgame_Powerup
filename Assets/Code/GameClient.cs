@@ -22,9 +22,10 @@ public class GameClient : Singleton<GameClient>
     NetConnectionParam param;
     bool connected = false;
     HostID groupHostID = HostID.HostID_None;
-
-
-    private void Awake()
+    [SerializeField] bool SoloPlayer;
+    [SerializeField] int PlayerNumber;
+    [SerializeField] int Score;
+    private void Start()
     {
 
         netClient = new NetClient();
@@ -40,7 +41,6 @@ public class GameClient : Singleton<GameClient>
                 connected = true;
             }
         };
-
         netClient.LeaveServerHandler = (ErrorInfo info) =>
         {
             connected = false;
@@ -68,7 +68,7 @@ public class GameClient : Singleton<GameClient>
         {
             Debug.Log(string.Format("PlayerEnter"));
             print("player : "+PlayerNo+" Entered to " +(int)remote);
-            GameManager.Instance.player.SetPlayerNumber(PlayerNo);
+            SetPlayerNumber(PlayerNo);
             return true;
         };//Ui단계에서 BtnType에 Together창에서 구현
 
@@ -86,21 +86,24 @@ public class GameClient : Singleton<GameClient>
         stubS2G.GameEnd = (HostID remote, RmiContext rmiContext) =>
         {
             Debug.Log(string.Format("GameEnd"));
-            
+            print("게임이 종료 되었습니다.");
             return true;
         };//GameEnd란것을 알려야함 HUD에서 구현
+        //어떤 프록시랑연결되어있는가
         stubS2G.PlayerMove = (HostID remote, RmiContext rmiContext, int playerNo, int key, List<int> enemies) =>
         {
             print("PlayerMove : " + playerNo + " is moving to" + key);
-            GameManager.Instance.player.SetPlayerNumber(playerNo);
+            
             return true;
         };//Player 스크립트에서 구현
         stubS2G.PlayersRank = (HostID remote, RmiContext rmiContext, SortedDictionary<int, int> playersRank) =>
         {
+
             return true;
         };//GameOver 스크립트에서 구현
         stubS2G.PlayersReady = (HostID remote, RmiContext rmiContext, SortedDictionary<int, bool> playersReady) =>
         {
+            print("플레이어" + playersReady.Keys + " 가 " + playersReady.Values + "상태입니다.");
 
             return true;
         };//대기방을 만들거나 정지된 화면에서 버튼을 활성화 Ready 버튼 구현 및 Ready상태를 내보낸다.
@@ -109,6 +112,7 @@ public class GameClient : Singleton<GameClient>
 
             return true;
         };//HUD에 TIME을 받는다.
+        //이녀석은 어떤 프록시랑 연결되어있는건가.
         
 
         netClient.AttachProxy(proxy);
@@ -149,6 +153,34 @@ public class GameClient : Singleton<GameClient>
     {
         proxy.HasPoint(HostID.HostID_Server, RmiContext.ReliableSend,point);
     }
+    public bool GetPlayer()
+    {
+        return SoloPlayer;
+    }
+    public void SetPlayer(bool solo)
+    {
+        SoloPlayer = solo;
+    }
+    public int GetPlayerNumber()
+    {
+        return PlayerNumber;
+    }
+    public void SetPlayerNumber(int number)
+    {
+        PlayerNumber = number;
+    }
+    public void SetScore(int a)
+    {
+        Score = a;
+    }
+    public int GetScore()
+    {
+        return Score;
+    }
+    //public void CallGameStart()
+    //{
+    //    proxy.
+    //}
     public NetClient GetClient()
     {
         return netClient;
