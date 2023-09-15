@@ -9,7 +9,7 @@ public class HUD : MonoBehaviour
     [SerializeField] Text timerText;
     [SerializeField] Button PauseButton;
     [SerializeField] TextMeshProUGUI scoreText;
-    [SerializeField] float time = 20;
+    [SerializeField] float time=20;
     [SerializeField] float score = 1;
     [SerializeField] bool isplay = false;
     void Start()
@@ -88,5 +88,9 @@ public class HUD : MonoBehaviour
     public void GameOver()
     {
         isplay = false;
+    }
+    public void SetTime(long T)
+    {
+        time = T;
     }
 }

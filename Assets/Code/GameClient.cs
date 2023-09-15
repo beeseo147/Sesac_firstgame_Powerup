@@ -6,10 +6,23 @@ using System.Net;
 using TMPro;
 using UnityEngine.tvOS;
 using System;
+using UnityEngine.SceneManagement;
 
 
 public class GameClient : Singleton<GameClient>
 {
+    void printMap(List<int> enemies)
+    {
+        int ix = 0;
+        for (int i = 0; i < 3; ++i)
+        {
+            for (int j = 0; j < 3; ++j)
+            {
+                print(enemies[ix++] + " ");
+            }
+            print('\n');
+        }
+    }
     //수신 코드 Stub 서버에서 글로벌에게 서버에서 클라이언트 단계에서의 구현
     //Stub의 구현 필요
     PowerupS2G.Stub stubS2G;
@@ -81,38 +94,48 @@ public class GameClient : Singleton<GameClient>
         stubS2G.GameStart = (HostID remote, RmiContext rmiContext) =>
         {
             Debug.Log(string.Format("GameStart"));
+            SceneManager.LoadScene("SampleScene");
+            Debug.Log("멀티게임실행");
+            GameClient.Instance.SetPlayer(false);
             return true;
         };//대기방이나 게임 단계
         stubS2G.GameEnd = (HostID remote, RmiContext rmiContext) =>
         {
             Debug.Log(string.Format("GameEnd"));
             print("게임이 종료 되었습니다.");
+
             return true;
         };//GameEnd란것을 알려야함 HUD에서 구현
-        //어떤 프록시랑연결되어있는가
+        //게임 종료후 실행
+
         stubS2G.PlayerMove = (HostID remote, RmiContext rmiContext, int playerNo, int key, List<int> enemies) =>
         {
             print("PlayerMove : " + playerNo + " is moving to" + key);
-            
+            printMap(enemies);
             return true;
-        };//Player 스크립트에서 구현
+        };
+        //Player 스크립트에서 구현
         stubS2G.PlayersRank = (HostID remote, RmiContext rmiContext, SortedDictionary<int, int> playersRank) =>
         {
 
             return true;
-        };//GameOver 스크립트에서 구현
+        };
+        //Move() 스크립트에서 구현 무브할때마다 점수를 연동해서 올리는것
+
         stubS2G.PlayersReady = (HostID remote, RmiContext rmiContext, SortedDictionary<int, bool> playersReady) =>
         {
-            print("플레이어" + playersReady.Keys + " 가 " + playersReady.Values + "상태입니다.");
-
+            foreach (var item in playersReady)
+            {
+                print("플레이어" + item.Key + " 가 " + item.Value + "상태입니다.");
+            }
             return true;
         };//대기방을 만들거나 정지된 화면에서 버튼을 활성화 Ready 버튼 구현 및 Ready상태를 내보낸다.
         stubS2G.TimeNow = (HostID remote, RmiContext rmiContext, long ticksReamain) =>
         {
-
+            GameManager.Instance.hud.SetTime(ticksReamain);
             return true;
         };//HUD에 TIME을 받는다.
-        //이녀석은 어떤 프록시랑 연결되어있는건가.
+
         
 
         netClient.AttachProxy(proxy);
@@ -153,6 +176,7 @@ public class GameClient : Singleton<GameClient>
     {
         proxy.HasPoint(HostID.HostID_Server, RmiContext.ReliableSend,point);
     }
+
     public bool GetPlayer()
     {
         return SoloPlayer;
@@ -177,10 +201,7 @@ public class GameClient : Singleton<GameClient>
     {
         return Score;
     }
-    //public void CallGameStart()
-    //{
-    //    proxy.
-    //}
+
     public NetClient GetClient()
     {
         return netClient;

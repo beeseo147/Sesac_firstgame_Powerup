@@ -172,6 +172,7 @@ MonoBehaviour:
   - {fileID: 6421292833443074497, guid: bf3c3bb6ff1b26749964845ab021ed66, type: 3}
   - {fileID: 6421292833443074497, guid: 19c70b18a7c8aa74d8063990a9efb865, type: 3}
   - {fileID: 6421292833443074497, guid: c8acc315271982446ba30dcf8be1c1a6, type: 3}
+  enemies: 
 --- !u!1 &80719143
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: 0}
+  m_AnchoredPosition: {x: 30, y: -20}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &109320290
@@ -2795,8 +2796,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -75, y: -21.162994}
+  m_SizeDelta: {x: 150, y: 37.326}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &967707046
 GameObject:

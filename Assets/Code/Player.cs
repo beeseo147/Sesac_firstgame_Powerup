@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         //최대거리에 벗어날경우
         targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
         targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
-        GameClient.Instance.CallMove(1, GameManager.Instance.pool.enemies);
+        GameClient.Instance.CallMove(GameClient.Instance.GetPlayerNumber(), GameManager.Instance.pool.enemies);
         float t = 0; // 현재 이동 시간
         while (t < 1) // 이동이 완료되지 않은 경우
         {
