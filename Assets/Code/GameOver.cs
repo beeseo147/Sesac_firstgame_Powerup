@@ -27,6 +27,7 @@ public class GameOver : MonoBehaviour
     }
     void printRank()
     {
+        SetRank(GameClient.Instance.finalplayersRank);
         int index = Rank.Count-1;
         foreach (var kvp in Rank)
         {
@@ -37,13 +38,10 @@ public class GameOver : MonoBehaviour
             }
 
             // sortedRank의 각 항목을 Text로 변환하여 textList에 할당합니다.
-            textList[index].text = kvp.Value + "플레이어 " + kvp.Key + "점";
+            textList[index].text = kvp.Key + "플레이어 " + kvp.Value + "등 ";
             index--;
         }
     }
-
-
-
     void SetRank(SortedDictionary<int, int> End)
     {
 

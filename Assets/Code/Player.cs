@@ -52,23 +52,27 @@ public class Player : MonoBehaviour
         if (inputVec.x > 0.5f)
         {
             targetPos.x += 4;
+            GameClient.Instance.CallMove((1), GameManager.Instance.pool.enemies); //1이면 우측
         }
         else if (-0.7f < inputVec.x && inputVec.x < 0.71f && inputVec.y > 0.5f)
         {
             targetPos.y += 4;
+            GameClient.Instance.CallMove((2), GameManager.Instance.pool.enemies); //2면 위로
         }
         else if (-0.7f < inputVec.x && inputVec.x < 0.71f && inputVec.y < 0.5f)
         {
             targetPos.y -= 4;
+            GameClient.Instance.CallMove((3), GameManager.Instance.pool.enemies); //3이면 아래로
         }
         else
         {
             targetPos.x -= 4;
-        }
+            GameClient.Instance.CallMove((4), GameManager.Instance.pool.enemies); //4이면 아래로 
+        }//TODO : 최대거리에서 벗어날 경우의 계산
         //최대거리에 벗어날경우
         targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
         targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
-        GameClient.Instance.CallMove(GameClient.Instance.GetPlayerNumber(), GameManager.Instance.pool.enemies);
+        
         float t = 0; // 현재 이동 시간
         while (t < 1) // 이동이 완료되지 않은 경우
         {
@@ -81,7 +85,7 @@ public class Player : MonoBehaviour
 
     void OnMove(InputValue value)
     {
-        inputVec = value.Get<Vector2>(); // �Է��� �����մϴ�
+        inputVec = value.Get<Vector2>(); 
     }
     void LateUpdate()
     {

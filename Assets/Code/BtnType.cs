@@ -67,14 +67,12 @@ public class BtnType : MonoBehaviour
                 break;
         //PlayGruop
             case BTNType.Solo:
-                print("씬 전환전");
                 SceneManager.LoadScene("SampleScene");
-                Debug.Log("게임실행");
                 GameClient.Instance.SetPlayer(true);
                 GameClient.Instance.SetPlayerNumber(1);
                 break;
             case BTNType.Togeter:
-                Debug.Log("함께하기");
+                Debug.Log("Togeter");
                 CanvasGroupOff(PlayGroup);
                 CanvasGroupOff(mainGroup);
                 CanvasGroupOff(optionGroup);
@@ -93,8 +91,6 @@ public class BtnType : MonoBehaviour
                 CanvasGroupOff(MultiGroup);
                 break;
             case BTNType.Start:
-                SceneManager.LoadScene("SampleScene");
-                Debug.Log("멀티게임실행");
                 GameClient.Instance.SetPlayer(false);
                 break;
 

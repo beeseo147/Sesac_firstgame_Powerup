@@ -23,8 +23,10 @@ public class HUD : MonoBehaviour
             PauseButton.gameObject.SetActive(false);
         }
     }
-    public void AdditionAndSubtraction(float value) // +/-Á¡¼ö °è»ê
-=> score += value;
+    public void AdditionAndSubtraction(float value) {
+        // +/-Á¡¼ö °è»ê
+        score += value;
+    }
 
     public void MultiplicationAndDivision(float value) // °ö¼À/³ª´°¼À ¿¬»ê
     {
@@ -73,12 +75,7 @@ public class HUD : MonoBehaviour
             time -= Time.deltaTime;
         else
         {
-            time = 0;
-            GameClient.Instance.SetScore((int)score);
-            GameManager.Instance.player.isdead = true;
-            SceneManager.LoadScene("GameOver");
             GameOver();
-
         }
 
         timerText.text = time.ToString("F1");
@@ -87,6 +84,10 @@ public class HUD : MonoBehaviour
     }
     public void GameOver()
     {
+        time = 0;
+        GameClient.Instance.SetScore((int)score);
+        GameManager.Instance.player.isdead = true;
+        SceneManager.LoadScene("GameOver");
         isplay = false;
     }
     public void SetTime(long T)

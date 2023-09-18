@@ -38,6 +38,7 @@ public class GameClient : Singleton<GameClient>
     [SerializeField] bool SoloPlayer;
     [SerializeField] int PlayerNumber;
     [SerializeField] int Score;
+    public SortedDictionary<int, int> finalplayersRank;
     private void Start()
     {
 
@@ -83,58 +84,58 @@ public class GameClient : Singleton<GameClient>
             print("player : "+PlayerNo+" Entered to " +(int)remote);
             SetPlayerNumber(PlayerNo);
             return true;
-        };//Ui단계에서 BtnType에 Together창에서 구현
+        };//Player가 들어왔을때, 자신의 플레이어 명과 어디 호스트에 들어갔는지 알게됨
 
         stubS2C.PlayerExit = (HostID remote, RmiContext rmiContext, bool isExit) =>
         {
             Debug.Log(string.Format("PlayerExit"));
             print("player Exit to " + (int)remote);
             return true;
-        };//넘어가서 대기방에서 만들지 게임들어가서 활성화할지 고민
+        };//Player가 나간순간 어디서 나갔는지 기록
         stubS2G.GameStart = (HostID remote, RmiContext rmiContext) =>
         {
             Debug.Log(string.Format("GameStart"));
             SceneManager.LoadScene("SampleScene");
-            Debug.Log("멀티게임실행");
             GameClient.Instance.SetPlayer(false);
             return true;
-        };//대기방이나 게임 단계
+        };//2명이상의 플레이어가 Reay상태일때 실행
         stubS2G.GameEnd = (HostID remote, RmiContext rmiContext) =>
         {
-            Debug.Log(string.Format("GameEnd"));
-            print("게임이 종료 되었습니다.");
-
+            CallHasPoint((int)(GameManager.Instance.hud.getscore()));//???? ????
             return true;
-        };//GameEnd란것을 알려야함 HUD에서 구현
-        //게임 종료후 실행
+        };//게임 종료즉시 스코어값을 입력받아 각각의 유저에게 score값 정리
 
         stubS2G.PlayerMove = (HostID remote, RmiContext rmiContext, int playerNo, int key, List<int> enemies) =>
         {
             print("PlayerMove : " + playerNo + " is moving to" + key);
-            printMap(enemies);
+            //printMap(enemies);
             return true;
         };
-        //Player 스크립트에서 구현
+        // TODO: Player 가 움직일때 어떻게 처리할것인가.
         stubS2G.PlayersRank = (HostID remote, RmiContext rmiContext, SortedDictionary<int, int> playersRank) =>
         {
+            //foreach (var item in playersRank)
+            //{
+            //    print("?÷????" + item.Key + " ?? " + item.Value + "??????.");
+            //}
 
+            finalplayersRank = playersRank;
             return true;
-        };
-        //Move() 스크립트에서 구현 무브할때마다 점수를 연동해서 올리는것
-
+        };//HasPoint실행시 실행되며 playerRank에는 플레이어별 순위가 나타난다.
+        //TODO : 플레이어별 순위 말고 현재 점수에 대한 이야기도 해야한다.
         stubS2G.PlayersReady = (HostID remote, RmiContext rmiContext, SortedDictionary<int, bool> playersReady) =>
         {
             foreach (var item in playersReady)
             {
-                print("플레이어" + item.Key + " 가 " + item.Value + "상태입니다.");
+                //print("?÷????" + item.Key + " ?? " + item.Value + "????????.");
             }
             return true;
-        };//대기방을 만들거나 정지된 화면에서 버튼을 활성화 Ready 버튼 구현 및 Ready상태를 내보낸다.
+        };//
         stubS2G.TimeNow = (HostID remote, RmiContext rmiContext, long ticksReamain) =>
         {
             GameManager.Instance.hud.SetTime(ticksReamain);
             return true;
-        };//HUD에 TIME을 받는다.
+        };//HUD에게 멀티게임의 시간을 전달한다.
 
         
 

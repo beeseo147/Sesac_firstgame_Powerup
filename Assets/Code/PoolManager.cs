@@ -5,10 +5,11 @@ using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
     //..변수
-    [Header("# Monster")]
+    [Header("# Enemy")]
     [SerializeField] GameObject[] prefabs;
     //..풀 담당을 하는 리스트들
     public List<GameObject>[] pools;
+    //TODO : Pool에 담긴 배열값을 어떻게 관리할것인가?
     public List<int> enemies; //멀티용
     void Awake()
     {
