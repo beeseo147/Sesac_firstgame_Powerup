@@ -41,7 +41,6 @@ public class GameClient : Singleton<GameClient>
     public SortedDictionary<int, int> finalplayersRank;
     private void Start()
     {
-
         netClient = new NetClient();
 
         proxy = new PowerupC2S.Proxy();
@@ -101,24 +100,17 @@ public class GameClient : Singleton<GameClient>
         };//2명이상의 플레이어가 Reay상태일때 실행
         stubS2G.GameEnd = (HostID remote, RmiContext rmiContext) =>
         {
-            CallHasPoint((int)(GameManager.Instance.hud.getscore()));//???? ????
+            CallHasPoint((int)(GameManager.Instance.hud.getscore()));//
             return true;
         };//게임 종료즉시 스코어값을 입력받아 각각의 유저에게 score값 정리
 
         stubS2G.PlayerMove = (HostID remote, RmiContext rmiContext, int playerNo, int key, List<int> enemies) =>
         {
-            print("PlayerMove : " + playerNo + " is moving to" + key);
-            //printMap(enemies);
             return true;
         };
         // TODO: Player 가 움직일때 어떻게 처리할것인가.
         stubS2G.PlayersRank = (HostID remote, RmiContext rmiContext, SortedDictionary<int, int> playersRank) =>
         {
-            //foreach (var item in playersRank)
-            //{
-            //    print("?÷????" + item.Key + " ?? " + item.Value + "??????.");
-            //}
-
             finalplayersRank = playersRank;
             return true;
         };//HasPoint실행시 실행되며 playerRank에는 플레이어별 순위가 나타난다.

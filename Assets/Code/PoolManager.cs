@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,17 +15,16 @@ public class PoolManager : MonoBehaviour
     void Awake()
     {
         pools = new List<GameObject>[prefabs.Length];
+        enemies = new List<int>();
         for (int index = 0; index < pools.Length; index++)
         {
             pools[index] = new List<GameObject>(); // 각 요소를 List<GameObject>의 인스턴스로 초기화
-
         }
     }
 
     public GameObject Get(int index)
     {
         //새로운 게임 오브젝트 생성
-
         GameObject newObject = Instantiate(prefabs[index], transform);
         newObject.SetActive(true);
         pools[index].Add(newObject);
