@@ -31,4 +31,18 @@ public class AudioManager : Singleton<AudioManager>
             sfxSource.PlayOneShot(s.clip);
         }
     }
+    public void SetVolume(float volume)
+    {
+        musicSource.volume = Mathf.Clamp(volume, 0f, 1f);
+    }
+
+    public void IncreaseVolume(float increment)
+    {
+        musicSource.volume = Mathf.Clamp(musicSource.volume + increment, 0f, 1f);
+    }
+
+    public void DecreaseVolume(float decrement)
+    {
+        musicSource.volume = Mathf.Clamp(musicSource.volume - decrement, 0f, 1f);
+    }
 }

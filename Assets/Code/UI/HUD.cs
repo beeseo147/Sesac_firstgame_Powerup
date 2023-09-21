@@ -19,7 +19,7 @@ public class HUD : MonoBehaviour
         PauseButton = GetComponentInChildren<Button>();
         if (!GameClient.Instance.GetPlayer())
         {
-            PauseButton.interactable = false;
+            //PauseButton.interactable = false;
             PauseButton.gameObject.SetActive(false);
         }
     }

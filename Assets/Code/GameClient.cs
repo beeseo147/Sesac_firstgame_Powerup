@@ -38,6 +38,7 @@ public class GameClient : Singleton<GameClient>
     [SerializeField] bool SoloPlayer;
     [SerializeField] int PlayerNumber;
     [SerializeField] int Score;
+    [SerializeField] int PlayerCount=0;
     public SortedDictionary<int, int> finalplayersRank;
     private void Start()
     {
@@ -89,18 +90,19 @@ public class GameClient : Singleton<GameClient>
         {
             Debug.Log(string.Format("PlayerExit"));
             print("player Exit to " + (int)remote);
+            PlayerCount--;
             return true;
         };//Player가 나간순간 어디서 나갔는지 기록
         stubS2G.GameStart = (HostID remote, RmiContext rmiContext) =>
         {
             Debug.Log(string.Format("GameStart"));
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("GameScene");
             GameClient.Instance.SetPlayer(false);
             return true;
         };//2명이상의 플레이어가 Reay상태일때 실행
         stubS2G.GameEnd = (HostID remote, RmiContext rmiContext) =>
         {
-            CallHasPoint((int)(GameManager.Instance.hud.getscore()));//
+            CallHasPoint((int)(GameManager.Instance.hud.getscore()));
             return true;
         };//게임 종료즉시 스코어값을 입력받아 각각의 유저에게 score값 정리
 
@@ -114,15 +116,13 @@ public class GameClient : Singleton<GameClient>
             finalplayersRank = playersRank;
             return true;
         };//HasPoint실행시 실행되며 playerRank에는 플레이어별 순위가 나타난다.
-        //TODO : 플레이어별 순위 말고 현재 점수에 대한 이야기도 해야한다.
+
         stubS2G.PlayersReady = (HostID remote, RmiContext rmiContext, SortedDictionary<int, bool> playersReady) =>
         {
-            foreach (var item in playersReady)
-            {
-                //print("?÷????" + item.Key + " ?? " + item.Value + "????????.");
-            }
+            print("PlayerReady");
+            PlayerCount = playersReady.Count;
             return true;
-        };//
+        };//Ready 버튼을 누를시 
         stubS2G.TimeNow = (HostID remote, RmiContext rmiContext, long ticksReamain) =>
         {
             GameManager.Instance.hud.SetTime(ticksReamain);
@@ -198,5 +198,9 @@ public class GameClient : Singleton<GameClient>
     public NetClient GetClient()
     {
         return netClient;
+    }
+    public int GetPlayerCount()
+    {
+        return PlayerCount;
     }
 }

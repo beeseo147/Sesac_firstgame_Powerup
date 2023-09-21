@@ -23,7 +23,7 @@ public class BtnType : MonoBehaviour
     }
     public void OnBtnClick()
     {
-        Debug.Log(Key);
+        //Debug.Log(Key);
         AudioManager.Instance.PlaySFX("ClikKey");
         switch (Key)
         {
@@ -67,7 +67,7 @@ public class BtnType : MonoBehaviour
                 break;
         //PlayGruop
             case BTNType.Solo:
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene("GameScene");
                 GameClient.Instance.SetPlayer(true);
                 GameClient.Instance.SetPlayerNumber(1);
                 break;
@@ -111,17 +111,16 @@ public class BtnType : MonoBehaviour
 
     private void PlayerEnter()
     {
-        print("player enter");
         GameClient.Instance.CallEnterRoom();
     }
     public void PlayerExit()
     {
-        print("player Exit");
+        //print("player Exit");
         GameClient.Instance.CallPlayerExit();
     }
     private void PlayerGetReady(bool isready)
     {
-        print("player Ready");
+        //print("player Ready");
         GameClient.Instance.CallGetReady(isready);
     }
 }
