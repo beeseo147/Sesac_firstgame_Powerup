@@ -27,7 +27,7 @@ public class PoolManager : MonoBehaviour
         //새로운 게임 오브젝트 생성
         GameObject newObject = Instantiate(prefabs[index], transform);
         newObject.SetActive(true);
-        pools[index].Add(newObject);
+        //pools[index].Add(newObject);
         enemies.Add(index);
         return newObject;
     }

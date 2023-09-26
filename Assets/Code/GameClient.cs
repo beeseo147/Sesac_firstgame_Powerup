@@ -11,18 +11,18 @@ using UnityEngine.SceneManagement;
 
 public class GameClient : Singleton<GameClient>
 {
-    void printMap(List<int> enemies)
-    {
-        int ix = 0;
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 3; ++j)
-            {
-                print(enemies[ix++] + " ");
-            }
-            print('\n');
-        }
-    }
+    //void printMap(List<int> enemies)
+    //{
+    //    int ix = 0;
+    //    for (int i = 0; i < 3; ++i)
+    //    {
+    //        for (int j = 0; j < 3; ++j)
+    //        {
+    //            print(enemies[ix++] + " ");
+    //        }
+    //        print('\n');
+    //    }
+    //}
     //수신 코드 Stub 서버에서 글로벌에게 서버에서 클라이언트 단계에서의 구현
     //Stub의 구현 필요
     PowerupS2G.Stub stubS2G;
@@ -30,7 +30,7 @@ public class GameClient : Singleton<GameClient>
 
     //송신 코드 클라이언트에서 서버로 갈 자료 정리
     PowerupC2S.Proxy proxy;
-
+    Console console;
     NetClient netClient;
     NetConnectionParam param;
     bool connected = false;
@@ -42,11 +42,14 @@ public class GameClient : Singleton<GameClient>
     public SortedDictionary<int, int> finalplayersRank;
     private void Start()
     {
+        console = GameObject.Find("Content").GetComponent<Console>();
         netClient = new NetClient();
 
         proxy = new PowerupC2S.Proxy();
         stubS2C = new PowerupS2C.Stub();
+        //서버가 현재 클라이언트에게 알리는것들
         stubS2G = new PowerupS2G.Stub();
+        //서버가 모든 클라이언트에게 알리는것들
 
         netClient.JoinServerCompleteHandler = (ErrorInfo info, ByteArray replyFromServer) =>
         {
@@ -80,7 +83,6 @@ public class GameClient : Singleton<GameClient>
 
         stubS2C.PlayerEnter = (HostID remote, RmiContext rmiContext,int PlayerNo) =>
         {
-            Debug.Log(string.Format("PlayerEnter"));
             print("player : "+PlayerNo+" Entered to " +(int)remote);
             SetPlayerNumber(PlayerNo);
             return true;
@@ -88,18 +90,19 @@ public class GameClient : Singleton<GameClient>
 
         stubS2C.PlayerExit = (HostID remote, RmiContext rmiContext, bool isExit) =>
         {
-            Debug.Log(string.Format("PlayerExit"));
-            print("player Exit to " + (int)remote);
-            PlayerCount--;
+            
+            print("player Exit to " + remote);
             return true;
         };//Player가 나간순간 어디서 나갔는지 기록
         stubS2G.GameStart = (HostID remote, RmiContext rmiContext) =>
         {
-            Debug.Log(string.Format("GameStart"));
             SceneManager.LoadScene("GameScene");
             GameClient.Instance.SetPlayer(false);
             return true;
-        };//2명이상의 플레이어가 Reay상태일때 실행
+        };
+        /*2명이상의 플레이어가 Reay상태일때 실행
+         * Main 게임을 불러오고
+        각 게임 클라이언트에게 솔로플레이가 아님을 알림*/
         stubS2G.GameEnd = (HostID remote, RmiContext rmiContext) =>
         {
             CallHasPoint((int)(GameManager.Instance.hud.getscore()));
@@ -119,8 +122,8 @@ public class GameClient : Singleton<GameClient>
 
         stubS2G.PlayersReady = (HostID remote, RmiContext rmiContext, SortedDictionary<int, bool> playersReady) =>
         {
-            print("PlayerReady");
             PlayerCount = playersReady.Count;
+            console.set(playersReady);
             return true;
         };//Ready 버튼을 누를시 
         stubS2G.TimeNow = (HostID remote, RmiContext rmiContext, long ticksReamain) =>
@@ -128,8 +131,6 @@ public class GameClient : Singleton<GameClient>
             GameManager.Instance.hud.SetTime(ticksReamain);
             return true;
         };//HUD에게 멀티게임의 시간을 전달한다.
-
-        
 
         netClient.AttachProxy(proxy);
         netClient.AttachStub(stubS2G);
@@ -203,4 +204,5 @@ public class GameClient : Singleton<GameClient>
     {
         return PlayerCount;
     }
+
 }

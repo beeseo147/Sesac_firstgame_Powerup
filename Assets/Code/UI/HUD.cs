@@ -79,6 +79,10 @@ public class HUD : MonoBehaviour
         }
 
         timerText.text = time.ToString("F1");
+        if (time < 5)
+        {
+            timerText.color = Color.red;
+        }
         scoreText.text = score.ToString() + " point";
             
     }
