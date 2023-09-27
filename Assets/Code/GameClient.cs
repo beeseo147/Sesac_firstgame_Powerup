@@ -4,8 +4,6 @@ using UnityEngine;
 using Nettention.Proud;
 using System.Net;
 using TMPro;
-using UnityEngine.tvOS;
-using System;
 using UnityEngine.SceneManagement;
 
 
